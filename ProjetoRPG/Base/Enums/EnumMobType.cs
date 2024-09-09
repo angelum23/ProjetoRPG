@@ -7,3 +7,12 @@ public enum EnumMobType
     Enemy,
     Boss
 }
+
+public enum EnumLevelType
+{
+    KillScore,
+    TimeScore,
+    Wave,
+    Survival,
+    Boss,
+}
