@@ -6,22 +6,22 @@ public class Character
 {
     #region Constructor
     protected Character(string name, 
-                     float damage, 
-                     float accuracy, 
-                     float range, 
-                     float totalHealth, 
-                     float currentHealth, 
-                     float regeneration, 
-                     float armor, 
-                     float magicResist,
-                     float agility,
-                     float magicDamage, 
-                     float totalMana, 
-                     float currentMana, 
-                     float manaRegeneration,
-                     float level,
-                     float xpPerc,
-                     EnumMobType mobType)
+                         float damage, 
+                         float accuracy, 
+                         float range, 
+                         float totalHealth, 
+                         float currentHealth, 
+                         float regeneration, 
+                         float armor, 
+                         float magicResist,
+                         float agility,
+                         float magicDamage, 
+                         float totalMana, 
+                         float currentMana, 
+                         float manaRegeneration,
+                         float level,
+                         float xpPerc,
+                         EnumMobType mobType)
     {
         Name = name;
         Damage = damage;
@@ -72,6 +72,7 @@ public class Character
     {
         float damageTaken = Math.Max(0, enemy.Damage - Armor);
         CurrentHealth -= damageTaken;
+        Console.WriteLine(damageTaken + " damage was taken!");
     }
 
     public virtual void MagicDefend(Character enemy)
@@ -89,6 +90,11 @@ public class Character
         }
         
         enemy.Defend(this);
+    }
+
+    public virtual void MagicAtack(Character enemy)
+    {
+        Console.WriteLine("Casted a nothing ball!");
     }
 
     public virtual float HitChance(float enemyAgility)
