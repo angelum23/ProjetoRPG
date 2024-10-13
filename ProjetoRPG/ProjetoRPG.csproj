@@ -8,7 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Levels\" />
+      <Compile Remove="Levels\Area.cs" />
+      <Compile Remove="Enums\LootType.cs" />
     </ItemGroup>
 
 </Project>

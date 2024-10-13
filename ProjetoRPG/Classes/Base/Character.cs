@@ -60,7 +60,7 @@ public class Character
     public float TotalMana  { get; protected set; }
     public float CurrentMana  { get; protected set; }
     public float ManaRegeneration { get; protected set; }
-    
+    public int Gold { get; private set; }
     public float Level { get; protected set; }
     public float XpPerc { get; protected set; }
     public EnumMobType MobType { get; protected set; }
@@ -68,6 +68,14 @@ public class Character
     #endregion
     
     #region Methods
+    public void ReceiveGold(int amount)
+    {
+        Gold += amount;
+    }
+    public void SpendGold(int amount)
+    {
+        Gold -= amount;
+    }
     public virtual void Defend(Character enemy)
     {
         float damageTaken = Math.Max(0, enemy.Damage - Armor);
