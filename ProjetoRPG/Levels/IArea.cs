@@ -4,5 +4,5 @@ namespace ProjetoRPG.Levels;
 
 public interface IArea
 {
-    List<LevelCharacter> Enemies { get; set; }
+    List<LevelEnemy> Enemies { get; set; }
 }

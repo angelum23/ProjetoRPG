@@ -10,6 +10,7 @@
     <ItemGroup>
       <Compile Remove="Levels\Area.cs" />
       <Compile Remove="Enums\LootType.cs" />
+      <Compile Remove="Levels\IArea.cs" />
     </ItemGroup>
 
 </Project>

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Angelo\\Projetos\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj": {}
+    "C:\\Users\\angel\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Angelo\\Projetos\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj": {
+    "C:\\Users\\angel\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Angelo\\Projetos\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj",
+        "projectUniqueName": "C:\\Users\\angel\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj",
         "projectName": "ProjetoRPG",
-        "projectPath": "C:\\Users\\Angelo\\Projetos\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj",
-        "packagesPath": "C:\\Users\\Angelo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Angelo\\Projetos\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\obj\\",
+        "projectPath": "C:\\Users\\angel\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\angel\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Angelo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -58,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\Angelo\\.dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\angel\\.dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

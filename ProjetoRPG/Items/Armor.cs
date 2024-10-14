@@ -2,7 +2,7 @@
 
 namespace ProjetoRPG.Items;
 
-public class Shield : Item
+public class Armor : Item
 {
     public float BonusTotalHealth { get; set; }
     public float BonusRegeneration { get; set; }
@@ -10,4 +10,5 @@ public class Shield : Item
     public float BonusMagicResist { get; set; }
     public float BonusAgility { get; set; }
     public float BonusTotalMana { get; set; }
+    public float BonusManaRegeneration { get; set; }
 }
