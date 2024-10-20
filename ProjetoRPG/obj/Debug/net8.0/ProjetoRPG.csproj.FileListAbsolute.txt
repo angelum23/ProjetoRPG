@@ -27,3 +27,4 @@ C:\Users\angel\RiderProjects\ProjetoRPG\ProjetoRPG\obj\Debug\net8.0\refint\Proje
 C:\Users\angel\RiderProjects\ProjetoRPG\ProjetoRPG\obj\Debug\net8.0\ProjetoRPG.pdb
 C:\Users\angel\RiderProjects\ProjetoRPG\ProjetoRPG\obj\Debug\net8.0\ProjetoRPG.genruntimeconfig.cache
 C:\Users\angel\RiderProjects\ProjetoRPG\ProjetoRPG\obj\Debug\net8.0\ref\ProjetoRPG.dll
+C:\Users\Angelo\Projetos\RiderProjects\ProjetoRPG\ProjetoRPG\obj\Debug\net8.0\ProjetoRPG.sourcelink.json

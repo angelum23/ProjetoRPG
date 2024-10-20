@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\angel\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj": {}
+    "C:\\Users\\Angelo\\Projetos\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj": {}
   },
   "projects": {
-    "C:\\Users\\angel\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj": {
+    "C:\\Users\\Angelo\\Projetos\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\angel\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj",
+        "projectUniqueName": "C:\\Users\\Angelo\\Projetos\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj",
         "projectName": "ProjetoRPG",
-        "projectPath": "C:\\Users\\angel\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj",
-        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\angel\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\obj\\",
+        "projectPath": "C:\\Users\\Angelo\\Projetos\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\ProjetoRPG.csproj",
+        "packagesPath": "C:\\Users\\Angelo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Angelo\\Projetos\\RiderProjects\\ProjetoRPG\\ProjetoRPG\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Angelo\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -42,6 +42,22 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0-rc.2.24474.1, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.0-rc.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -54,11 +70,14 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\angel\\.dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\Angelo\\.dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
