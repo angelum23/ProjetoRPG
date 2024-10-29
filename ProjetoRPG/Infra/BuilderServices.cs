@@ -7,21 +7,39 @@ namespace ProjetoRPG.Infra;
 
 public class BuilderServices
 {
-    public List<Tuple<EnumServiceType, Type>> GetServiceList() =>
+    private static List<Service> GetSingletonList() =>
     [
-        ..GetSingletonList().Select(singletonService => new Tuple<EnumServiceType, Type>(EnumServiceType.Singleton, singletonService)),
-        ..GetTransientList().Select(transientService => new Tuple<EnumServiceType, Type>(EnumServiceType.Transient, transientService)),
-        ..GetScopedList().Select(scopedService => new Tuple<EnumServiceType, Type>(EnumServiceType.Scoped, scopedService))
+        new Service { ServiceType = typeof(RepBase<>), InterfaceType = typeof(IRepBase<>)},
+        new Service { ServiceType = typeof(RepCharacter) },
     ];
     
-    private List<Type> GetSingletonList() =>
+    private static List<Service> GetTransientList() =>
+    [];
+    
+    private static List<Service> GetScopedList() =>
+    [];
+    
+    public List<ServiceBuilder> GetServiceList() =>
     [
-        typeof(RepCharacter)
+        ..GetSingletonList().Select(singletonService => new ServiceBuilder
+        {
+            EnumServiceType = EnumServiceType.Singleton,
+            ServiceType = singletonService.ServiceType,
+            InterfaceType = singletonService.InterfaceType
+        }).ToList(),
+        
+        ..GetTransientList().Select(singletonService => new ServiceBuilder
+        {
+            EnumServiceType = EnumServiceType.Singleton,
+            ServiceType = singletonService.ServiceType,
+            InterfaceType = singletonService.InterfaceType
+        }).ToList(),
+        
+        ..GetScopedList().Select(singletonService => new ServiceBuilder
+        {
+            EnumServiceType = EnumServiceType.Singleton,
+            ServiceType = singletonService.ServiceType,
+            InterfaceType = singletonService.InterfaceType
+        }).ToList(),
     ];
-    
-    private List<Type> GetTransientList() =>
-    [];
-    
-    private List<Type> GetScopedList() =>
-    [];
 }

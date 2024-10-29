@@ -4,7 +4,7 @@ using ProjetoRPG.Infra;
 
 namespace ProjetoRPG.Repository.Base;
 
-public class RepBase<TEntity> where TEntity : BaseEntity
+public class RepBase<TEntity> : IRepBase<TEntity> where TEntity : BaseEntity
 {
     protected readonly ApplicationDbContext _context;
     private readonly DbSet<TEntity> _dbSet;

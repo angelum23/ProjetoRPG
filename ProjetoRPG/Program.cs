@@ -11,22 +11,30 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Adicione os serviços do seu projeto
-// builder.Services.AddScoped<RepCharacter>();
 BuilderServices builderServices = new();
-
-foreach (var serviceTuple in builderServices.GetServiceList())
+foreach (var serviceBuilder in builderServices.GetServiceList())
 {
-    switch (serviceTuple.Item1)
+    switch (serviceBuilder.EnumServiceType)
     {
         case EnumServiceType.Scoped:
-            builder.Services.AddScoped(serviceTuple.Item2);
+            if (serviceBuilder.InterfaceType != null) 
+                builder.Services.AddScoped(serviceBuilder.ServiceType, serviceBuilder.InterfaceType);
+            else
+                builder.Services.AddScoped(serviceBuilder.ServiceType);
             break;
+        
         case EnumServiceType.Singleton:
-            builder.Services.AddSingleton(serviceTuple.Item2);
+            if (serviceBuilder.InterfaceType != null)
+                builder.Services.AddSingleton(serviceBuilder.ServiceType, serviceBuilder.InterfaceType);
+            else
+                builder.Services.AddSingleton(serviceBuilder.ServiceType);
             break;
+        
         case EnumServiceType.Transient:
-            builder.Services.AddTransient(serviceTuple.Item2);
+            if (serviceBuilder.InterfaceType != null)
+                builder.Services.AddTransient(serviceBuilder.ServiceType, serviceBuilder.InterfaceType);
+            else
+                builder.Services.AddTransient(serviceBuilder.ServiceType);
             break;
         default:
             throw new ArgumentOutOfRangeException();
