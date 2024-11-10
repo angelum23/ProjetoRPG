@@ -1,6 +1,9 @@
-﻿namespace ProjetoRPG.Controller;
+﻿using ProjetoRPG.Items.Base;
+using ProjetoRPG.Service.Base;
 
-public class ItemController
+namespace ProjetoRPG.Controller;
+
+public class ItemController(IBaseService<Item> service) : BaseController<Item>(service)
 {
     
-}
+};

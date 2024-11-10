@@ -42,4 +42,33 @@ public class BuilderServices
             InterfaceType = singletonService.InterfaceType
         }).ToList(),
     ];
+
+    public void AddService(ServiceBuilder serviceBuilder,  WebApplicationBuilder builder)
+    {
+        switch (serviceBuilder.EnumServiceType)
+        {
+            case EnumServiceType.Scoped:
+                if (serviceBuilder.InterfaceType != null) 
+                    builder.Services.AddScoped(serviceBuilder.ServiceType, serviceBuilder.InterfaceType);
+                else
+                    builder.Services.AddScoped(serviceBuilder.ServiceType);
+                break;
+        
+            case EnumServiceType.Singleton:
+                if (serviceBuilder.InterfaceType != null)
+                    builder.Services.AddSingleton(serviceBuilder.ServiceType, serviceBuilder.InterfaceType);
+                else
+                    builder.Services.AddSingleton(serviceBuilder.ServiceType);
+                break;
+        
+            case EnumServiceType.Transient:
+                if (serviceBuilder.InterfaceType != null)
+                    builder.Services.AddTransient(serviceBuilder.ServiceType, serviceBuilder.InterfaceType);
+                else
+                    builder.Services.AddTransient(serviceBuilder.ServiceType);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
 }

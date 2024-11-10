@@ -1,9 +1,13 @@
-﻿using ProjetoRPG.Classes.Base;
+﻿using ProjetoRPG.Base;
+using ProjetoRPG.Classes.Base;
 
 namespace ProjetoRPG.Game;
 
-public class Player
+public class Player : BaseEntity
 {
-    public Inventory Inventory { get; private set; }
-    public Character Character { get; private set; }
+    public int IdInventory { get; set; }
+    public int IdCharacter { get; set; }
+    
+    public Inventory Inventory { get; set; }
+    public Character Character { get; set; }
 }
