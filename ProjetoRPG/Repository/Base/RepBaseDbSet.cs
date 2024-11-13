@@ -4,12 +4,12 @@ using ProjetoRPG.Infra;
 
 namespace ProjetoRPG.Repository.Base;
 
-public class RepBase<TEntity> : IRepBase<TEntity> where TEntity : BaseEntity
+public class RepBaseDbSet<TEntity> : IRepBase<TEntity> where TEntity : BaseEntity
 {
     private readonly ApplicationDbContext _context;
     private readonly DbSet<TEntity> _dbSet;
     
-    protected RepBase(ApplicationDbContext context)
+    protected RepBaseDbSet(ApplicationDbContext context)
     {
         _context = context;
         _dbSet = _context.Set<TEntity>();

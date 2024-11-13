@@ -1,55 +1,36 @@
-﻿using ProjetoRPG.Classes.Base;
+﻿using ProjetoRPG.Actions;
+using ProjetoRPG.Classes.Base;
+using ProjetoRPG.Game;
 using ProjetoRPG.Items.Base;
 
 namespace ProjetoRPG.Levels;
 
-public class Zone
+public class Zone : Scene
 {
-    public string Name { get; set; } = "";
+    public int IdCharacter { get; set; }
+    public Player Player { get; set; }
+    public Character Enemy { get; set; }
     public int DropPerc { get; set; } = 100;
-    public List<Item> Loots { get; } = [];
-    public List<ZoneEnemy> Enemies { get; } = [];
-    public List<Zone> Paths { get; } = [];
+    public List<Item> Loots { get; set; }
 
-    #region Methods
-    
-    #region Loots
-    
-    public void AddLoots(Item loot) {
-        Loots.Add(loot);
+
+    public override void Act()
+    {
+        //Todo: Implementar a lógica de combate
+        Player.Character.Attack(Enemy);
     }
-    
-    public void RemoveLoots(Item loot) {
-        Loots.Remove(loot);
+
+    public override void StartScene()
+    {
+        var combat = new Combat()
+        {
+            Character = this.Player.Character,
+            Enemy = Enemy
+        };
+        //todo: Implementar a lógica de exibir o início do combate
     }
-    
-    #endregion
-    
-    #region Enemies
-    
-    public void AddEnemy(ZoneEnemy enemy) {
-        Enemies.Add(enemy);
-    }
-    
-    public void RemoveEnemy(ZoneEnemy enemy) {
-        Enemies.Remove(enemy);
-    }
-    
-    #endregion
-    
-    #region Paths
-    
-    public void AddPaths(Zone path) {
-        Paths.Add(path);
-    }
-    
-    public void RemovePaths(Zone path) {
-        Paths.Remove(path);
-    }
-    
-    #endregion
-    
-    public void OnClearZone(Game.Player player)
+
+    public override void EndScene()
     {
         var zoneName = Name.Length > 0 ? (Name + " ") : "";
         Console.WriteLine($"Zone {zoneName}was cleared");
@@ -66,7 +47,6 @@ public class Zone
         }
         
         Console.WriteLine($"Dropped {drop.Name}");
-        player.Inventory.AddItem(drop);
-    } 
-    #endregion
+        Player.Inventory.AddItem(drop);
+    }
 }
