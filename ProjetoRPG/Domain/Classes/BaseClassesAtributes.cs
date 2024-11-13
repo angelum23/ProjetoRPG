@@ -1,12 +1,15 @@
-﻿using ProjetoRPG.Enums;
+﻿using ProjetoRPG.Classes.Base;
+using ProjetoRPG.Domain.Classes;
+using ProjetoRPG.Domain.DTOs;
+using ProjetoRPG.Enums;
 
 namespace ProjetoRPG.Classes;
 
 public class BaseClassesAtributes
 {
-    public static Wizard Wizard(string name, EnumMobType mobType = EnumMobType.Player)
+    public static Wizard Wizard(CreateCharacterDto dto)
     {
-        return new Wizard(name: name,
+        return new Wizard(name: dto.Name,
                           damage: 1,
                           accuracy: 5,
                           range: 12,
@@ -22,12 +25,12 @@ public class BaseClassesAtributes
                           manaRegeneration: 4,
                           level: 1,
                           xpPerc: 0,
-                          mobType: mobType);
+                          mobType: dto.MobType);
     }
 
-    public static Necromancer Necromancer(string name, EnumMobType mobType = EnumMobType.Player)
+    public static Necromancer Necromancer(CreateCharacterDto dto)
     {
-        return new Necromancer(name: name,
+        return new Necromancer(name: dto.Name,
                                damage: 1,
                                accuracy: 3,
                                range: 10,
@@ -43,12 +46,12 @@ public class BaseClassesAtributes
                                manaRegeneration: 6,
                                level: 1,
                                xpPerc: 0,
-                               mobType: mobType);
+                               mobType: dto.MobType);
     }
 
-    public static Ninja Ninja(string name, EnumMobType mobType = EnumMobType.Player)
+    public static Ninja Ninja(CreateCharacterDto dto)
     {
-        return new Ninja(name: name,
+        return new Ninja(name: dto.Name,
                          damage: 12,
                          accuracy: 8,
                          range: 2,
@@ -64,12 +67,12 @@ public class BaseClassesAtributes
                          manaRegeneration: 1,
                          level: 1,
                          xpPerc: 0,
-                         mobType: mobType);
+                         mobType: dto.MobType);
     }
 
-    public static Samurai Samurai(string name, EnumMobType mobType)
+    public static Samurai Samurai(CreateCharacterDto dto)
     {
-        return new Samurai(name: name,
+        return new Samurai(name: dto.Name,
                            damage: 20,
                            accuracy: 5,
                            range: 4,
@@ -85,12 +88,12 @@ public class BaseClassesAtributes
                            manaRegeneration: 0,
                            level: 1,
                            xpPerc: 0,
-                           mobType: mobType);
+                           mobType: dto.MobType);
     }
 
-    public static Priest Priest(string name, EnumMobType mobType)
+    public static Priest Priest(CreateCharacterDto dto)
     {
-        return new Priest(name: name,
+        return new Priest(name: dto.Name,
                            damage: 1,
                            accuracy: 3,
                            range: 8,
@@ -106,12 +109,12 @@ public class BaseClassesAtributes
                            manaRegeneration: 8,
                            level: 1,
                            xpPerc: 0,
-                           mobType: mobType);
+                           mobType: dto.MobType);
     }
 
-    internal static Paladin Paladin(string name, EnumMobType mobType)
+    internal static Paladin Paladin(CreateCharacterDto dto)
     {
-        return new Paladin(name: name,
+        return new Paladin(name: dto.Name,
                            damage: 15,
                            accuracy: 2,
                            range: 5,
@@ -127,6 +130,6 @@ public class BaseClassesAtributes
                            manaRegeneration: 2,
                            level: 1,
                            xpPerc: 0,
-                           mobType: mobType);
+                           mobType: dto.MobType);
     }
 }

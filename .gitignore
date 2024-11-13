@@ -1,0 +1,47 @@
+﻿# Diretórios de compilação
+bin/
+obj/
+
+# Logs
+*.log
+
+# Configurações e pacotes do Visual Studio
+.vscode/
+.vs/
+*.user
+*.suo
+
+# Pacotes
+packages/
+*.nupkg
+*.snupkg
+
+# Arquivos de saída
+*.dll
+*.exe
+*.pdb
+*.cache
+*.config
+*.db
+*.ds_store
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Dados do sistema de controle de versão
+Releases/
+TestResults/
+
+# Outros arquivos
+*.log
+*.ide
+*.sql
+*.ps1
+*.cmd
+
+# Arquivos do Rider
+.idea/
+*.sln.DotSettings.user

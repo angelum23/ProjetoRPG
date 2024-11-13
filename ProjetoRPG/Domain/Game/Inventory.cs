@@ -4,7 +4,7 @@ namespace ProjetoRPG.Game;
 
 public class Inventory
 {
-    public List<Item> Items { get; } = [];
+    public List<Item> Items { get; }
     public int Capacity { get; set; } = 60;
     
     #region Methods

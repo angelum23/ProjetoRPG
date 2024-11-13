@@ -1,12 +1,13 @@
 ﻿using ProjetoRPG.Base;
+using ProjetoRPG.Domain.Classes;
 using ProjetoRPG.Enums;
 
 namespace ProjetoRPG.Classes.Base;
 
-public class Character : BaseEntity
+public class Character : BaseEntity, ICharacter
 {
     #region Constructor
-    protected Character(string name, 
+    public Character(string name, 
                          float damage, 
                          float accuracy, 
                          float range, 
@@ -22,7 +23,8 @@ public class Character : BaseEntity
                          float manaRegeneration,
                          float level,
                          float xpPerc,
-                         EnumMobType mobType)
+                         EnumMobType mobType,
+                         EnumClassType classType)
     {
         Name = name;
         Damage = damage;
@@ -45,26 +47,27 @@ public class Character : BaseEntity
     #endregion
 
     #region Properties
-    public string Name { get; protected set; }
-    public float Damage { get; protected set; }
-    public float Accuracy { get; protected set; }
-    public float Range { get; protected set; }
+    public string Name { get; set; }
+    public float Damage { get; set; }
+    public float Accuracy { get; set; }
+    public float Range { get; set; }
     
-    public float TotalHealth { get; protected set; }
-    public float CurrentHealth { get; protected set; }
+    public float TotalHealth { get; set; }
+    public float CurrentHealth { get; set; }
     public bool IsAlive => CurrentHealth > 0;
-    public float Regeneration { get; protected set; }
-    public float Armor { get; protected set; }
-    public float MagicResist { get; protected set; }
-    public float Agility { get; protected set; }
-    public float MagicDamage { get; protected set; }
-    public float TotalMana  { get; protected set; }
-    public float CurrentMana  { get; protected set; }
-    public float ManaRegeneration { get; protected set; }
-    public int Gold { get; private set; }
-    public float Level { get; protected set; }
-    public float XpPerc { get; protected set; }
-    public EnumMobType MobType { get; protected set; }
+    public float Regeneration { get; set; }
+    public float Armor { get; set; }
+    public float MagicResist { get; set; }
+    public float Agility { get; set; }
+    public float MagicDamage { get; set; }
+    public float TotalMana  { get; set; }
+    public float CurrentMana  { get; set; }
+    public float ManaRegeneration { get; set; }
+    public int Gold { get; set; }
+    public float Level { get; set; }
+    public float XpPerc { get; set; }
+    public EnumMobType MobType { get; set; }
+    public EnumClassType ClassType { get; set; }
 
     #endregion
     

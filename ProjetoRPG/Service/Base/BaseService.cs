@@ -1,37 +1,44 @@
-﻿using ProjetoRPG.Repository.Base;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjetoRPG.Base;
+using ProjetoRPG.Repository.Base;
 
 namespace ProjetoRPG.Service.Base;
 
-public abstract class BaseService<T> : IBaseService<T> where T : class
+public abstract class BaseService<T>(IRepBase<T> rep) : IBaseService<T>
+    where T : BaseEntity
 {
-    #region Ctor
     
-    //todo Criar construtor daquele jeito maroto com abstract
-    
-    #endregion
-    
-    public Task<List<T>> GetAllAsync()
+    public async Task<List<T>> GetAllAsync()
     {
-        
+        return await rep.Get().ToListAsync();
     }
 
-    public Task<T> GetByIdAsync(int id)
+    public IQueryable<T> Get()
     {
-        throw new NotImplementedException();
+        return rep.Get();
+    }
+
+    public async Task<T> GetByIdAsync(int id)
+    {
+        return await rep.GetByIdAsync(id);
     }
     
-    public Task<T> Save(T entity)
+    public async Task<T> Save(T entity)
     {
-        throw new NotImplementedException();
+        await rep.SaveAsync(entity);
+        return entity;
     }
 
-    public Task<bool> HardDeleteAsync(int id)
+    public async Task HardDeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        await rep.DeleteAsync(id);
     }
 
-    public Task<bool> RemoveAsync(int id)
+    public async Task RemoveAsync(int id)
     {
-        throw new NotImplementedException();
+        var entity = await rep.GetByIdAsync(id);
+        entity.Remove();
+
+        await rep.SaveAsync(entity);
     }
 }

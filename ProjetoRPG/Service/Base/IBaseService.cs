@@ -4,7 +4,8 @@ public interface IBaseService<T>
 {
     Task<T> Save(T entity);
     Task<List<T>> GetAllAsync();
+    IQueryable<T> Get();
     Task<T> GetByIdAsync(int id);
-    Task<bool> HardDeleteAsync(int id);
-    Task<bool> RemoveAsync(int id);
+    Task HardDeleteAsync(int id);
+    Task RemoveAsync(int id);
 }

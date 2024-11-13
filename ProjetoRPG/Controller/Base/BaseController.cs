@@ -11,7 +11,7 @@ public abstract class BaseController<T> : ControllerBase
 {
     #region Ctor
 
-    private readonly IBaseService<T> _service;
+    protected readonly IBaseService<T> _service;
 
     public BaseController(IBaseService<T> service)
     {
@@ -21,7 +21,7 @@ public abstract class BaseController<T> : ControllerBase
     #endregion
     
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async virtual Task<IActionResult> Get()
     {
         try
         {
@@ -35,7 +35,7 @@ public abstract class BaseController<T> : ControllerBase
     }
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> Get(int id)
+    public async virtual Task<IActionResult> Get(int id)
     {
         try
         {
@@ -50,7 +50,7 @@ public abstract class BaseController<T> : ControllerBase
 
     [HttpPost]
     [HttpPut]
-    public async Task<IActionResult> Save([FromBody] T entity)
+    public async virtual Task<IActionResult> Save([FromBody] T entity)
     {
         try
         {
@@ -67,12 +67,11 @@ public abstract class BaseController<T> : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    public async Task<IActionResult> HardDelete(int id)
+    public async virtual Task<IActionResult> HardDelete(int id)
     {
         try
         {
-            var deleted = await _service.HardDeleteAsync(id);
-            if (!deleted) return NotFound();
+            await _service.HardDeleteAsync(id);
             return Ok();
         }
         catch (Exception e)
@@ -82,12 +81,11 @@ public abstract class BaseController<T> : ControllerBase
     }
 
     [HttpPatch("remove/{id:int}")]
-    public async Task<IActionResult> Remove(int id)
+    public async virtual Task<IActionResult> Remove(int id)
     {
         try
         {
-            var removed = await _service.RemoveAsync(id);
-            if (!removed) return NotFound();
+            await _service.RemoveAsync(id);
             return Ok();
         }
         catch (Exception e)
