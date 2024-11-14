@@ -85,6 +85,7 @@ public class Character : BaseEntity, ICharacter
         float damageTaken = Math.Max(0, enemy.Damage - Armor);
         CurrentHealth -= damageTaken;
         Console.WriteLine(damageTaken + " damage was taken!");
+        Console.WriteLine(CurrentHealth + " health left!");
     }
 
     public virtual void MagicDefend(Character enemy)

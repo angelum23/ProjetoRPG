@@ -21,7 +21,7 @@ public abstract class BaseController<T> : ControllerBase
     #endregion
     
     [HttpGet]
-    public async virtual Task<IActionResult> Get()
+    public virtual async Task<IActionResult> Get()
     {
         try
         {
@@ -35,7 +35,7 @@ public abstract class BaseController<T> : ControllerBase
     }
 
     [HttpGet("{id:int}")]
-    public async virtual Task<IActionResult> Get(int id)
+    public virtual async Task<IActionResult> Get(int id)
     {
         try
         {
@@ -50,7 +50,7 @@ public abstract class BaseController<T> : ControllerBase
 
     [HttpPost]
     [HttpPut]
-    public async virtual Task<IActionResult> Save([FromBody] T entity)
+    public virtual async Task<IActionResult> Save([FromBody] T entity)
     {
         try
         {
@@ -67,7 +67,7 @@ public abstract class BaseController<T> : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    public async virtual Task<IActionResult> HardDelete(int id)
+    public virtual async Task<IActionResult> HardDelete(int id)
     {
         try
         {
@@ -81,7 +81,7 @@ public abstract class BaseController<T> : ControllerBase
     }
 
     [HttpPatch("remove/{id:int}")]
-    public async virtual Task<IActionResult> Remove(int id)
+    public virtual async Task<IActionResult> Remove(int id)
     {
         try
         {

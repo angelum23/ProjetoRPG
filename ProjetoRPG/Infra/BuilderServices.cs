@@ -9,7 +9,7 @@ public class BuilderServices
 {
     private static List<Service> GetSingletonList() =>
     [
-        new Service { ServiceType = typeof(RepBase<>), InterfaceType = typeof(IRepBase<>)},
+        new Service { ServiceType = typeof(RepBaseMemory<>), InterfaceType = typeof(IRepBase<>)},
         new Service { ServiceType = typeof(RepCharacter) },
     ];
     
@@ -19,6 +19,7 @@ public class BuilderServices
     private static List<Service> GetScopedList() =>
     [];
     
+    #region GetAllAndAddServices
     public List<ServiceBuilder> GetServiceList() =>
     [
         ..GetSingletonList().Select(singletonService => new ServiceBuilder
@@ -71,4 +72,5 @@ public class BuilderServices
                 throw new ArgumentOutOfRangeException();
         }
     }
+    #endregion
 }
