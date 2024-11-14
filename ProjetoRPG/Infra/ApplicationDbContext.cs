@@ -13,11 +13,6 @@ public class ApplicationDbContext : DbContext
 
     //Items
     public DbSet<Item> Item { get; set; }
-    public DbSet<Armor> Armor { get; set; }
-    public DbSet<Sword> Sword { get; set; }
-    public DbSet<Shield> Shield { get; set; }
-    public DbSet<Bow> Bow { get; set; }
-    public DbSet<Staff> Staff { get; set; }
     
     //Characters
     public DbSet<Character> Character { get; set; }
@@ -26,6 +21,6 @@ public class ApplicationDbContext : DbContext
     
     //Level
     public DbSet<Level> Level { get; set; }
-    public DbSet<Zone> Zone { get; set; }
+    public DbSet<CombatZone> Zone { get; set; }
     public DbSet<ZoneEnemy> ZoneEnemy { get; set; }
 }

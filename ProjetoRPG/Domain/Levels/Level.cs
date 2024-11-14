@@ -4,5 +4,5 @@ public class Level
 {
     public string LevelName { get; set; }
     public int MinLevel { get; set; } = 0;
-    public List<Zone> Zones = [];
+    public List<CombatZone> Zones = [];
 }

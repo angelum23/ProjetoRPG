@@ -1,12 +1,22 @@
 ﻿using ProjetoRPG.Actions;
 using ProjetoRPG.Classes.Base;
+using ProjetoRPG.Enums;
 using ProjetoRPG.Game;
 using ProjetoRPG.Items.Base;
 
 namespace ProjetoRPG.Levels;
 
-public class Zone : Scene
+public class CombatZone : Scene
 {
+    public CombatZone(int idScene, string name, string description, EnumSceneType sceneType, Scene nextScene, int idCharacter, Player player, Character enemy, int dropPerc, List<Item> loots) : base(idScene, name, description, sceneType, nextScene)
+    {
+        IdCharacter = idCharacter;
+        Player = player;
+        Enemy = enemy;
+        DropPerc = dropPerc;
+        Loots = loots;
+    }
+
     public int IdCharacter { get; set; }
     public Player Player { get; set; }
     public Character Enemy { get; set; }
@@ -33,7 +43,7 @@ public class Zone : Scene
     public override void EndScene()
     {
         var zoneName = Name.Length > 0 ? (Name + " ") : "";
-        Console.WriteLine($"Zone {zoneName}was cleared");
+        Console.WriteLine($"CombatZone {zoneName}was cleared");
         
         if (Random.Shared.Next(0, 100) <= DropPerc)
         {

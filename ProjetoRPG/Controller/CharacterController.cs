@@ -6,8 +6,12 @@ using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Controller;
 
-public class CharacterController(IBaseService<Character> service) : BaseController<Character>(service)
+public class CharacterController : BaseController<Character>
 {
+    public CharacterController(IBaseService<Character> service) : base(service)
+    {
+    }
+
     public override Task<IActionResult> Save(Character entity)
     {
         throw new NotSupportedException("Use NewCharacter endpoint.");
