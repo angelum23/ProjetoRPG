@@ -8,15 +8,6 @@ namespace ProjetoRPG.Levels;
 
 public class CombatZone : Scene
 {
-    public CombatZone(int idScene, string name, string description, EnumSceneType sceneType, Scene nextScene, int idCharacter, Player player, Character enemy, int dropPerc, List<Item> loots) : base(idScene, name, description, sceneType, nextScene)
-    {
-        IdCharacter = idCharacter;
-        Player = player;
-        Enemy = enemy;
-        DropPerc = dropPerc;
-        Loots = loots;
-    }
-
     public int IdCharacter { get; set; }
     public Player Player { get; set; }
     public Character Enemy { get; set; }
