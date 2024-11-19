@@ -3,7 +3,7 @@ using ProjetoRPG.Levels.DTOs;
 
 namespace ProjetoRPG.Levels.Base;
 
-public class SceneFabric
+public class SceneFactory
 {
     public static Scene CreateScene(EnumSceneType sceneType, NewSceneDto dto)
     {

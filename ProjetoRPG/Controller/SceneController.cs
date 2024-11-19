@@ -1,6 +1,13 @@
-﻿namespace ProjetoRPG.Controller;
+﻿using ProjetoRPG.Levels;
+using ProjetoRPG.Levels.Base;
+using ProjetoRPG.Service;
+using ProjetoRPG.Service.Base;
 
-public class SceneController
+namespace ProjetoRPG.Controller;
+
+public class SceneController : BaseController<Scene>
 {
-    
+    public SceneController(SceneService service) : base(service)
+    {
+    }
 }

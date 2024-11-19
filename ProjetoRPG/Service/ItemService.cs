@@ -7,9 +7,9 @@ namespace ProjetoRPG.Service;
 
 public class ItemService : BaseService<Item>
 {
-    private readonly IRepBase<Item> _rep;
+    private readonly IRepBase<Item>? _rep;
 
-    private ItemService(IRepBase<Item> rep) : base(rep)
+    private ItemService(IRepBase<Item>? rep) : base(rep)
     {
         _rep = rep;
     }

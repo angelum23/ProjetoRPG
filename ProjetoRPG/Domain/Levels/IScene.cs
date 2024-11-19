@@ -1,9 +1,8 @@
-﻿using ProjetoRPG.Base;
-using ProjetoRPG.Enums;
+﻿using ProjetoRPG.Enums;
 
 namespace ProjetoRPG.Levels;
 
-public abstract class Scene : BaseEntity
+public interface IScene
 {
     public string Name { get; set; }
     public string Description { get; set; }

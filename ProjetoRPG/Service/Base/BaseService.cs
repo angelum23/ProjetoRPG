@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoRPG.Base;
+using ProjetoRPG.Repository;
 using ProjetoRPG.Repository.Base;
 
 namespace ProjetoRPG.Service.Base;
 
-public abstract class BaseService<T>(IRepBase<T> rep) : IBaseService<T>
+public abstract class BaseService<T>(RepCombatZone? rep) : IBaseService<T>
     where T : BaseEntity
 {
     
