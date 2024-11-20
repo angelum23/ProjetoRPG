@@ -3,7 +3,6 @@ using ProjetoRPG.Repository.Base;
 
 namespace ProjetoRPG.Repository;
 
-public class RepCombatZone : RepBaseMemory<CombatZone>
+public class RepLevel : RepBaseMemory<Level>
 {
-    
 }

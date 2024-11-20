@@ -11,7 +11,7 @@ public abstract class BaseController<T> : ControllerBase
 {
     #region Ctor
 
-    protected readonly IBaseService<T> _service;
+    private readonly IBaseService<T> _service;
 
     public BaseController(IBaseService<T> service)
     {
