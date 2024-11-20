@@ -7,13 +7,13 @@ namespace ProjetoRPG.Controller;
 
 [ApiController]
 [Route("api/[controller]")]
-public abstract class BaseController<T> : ControllerBase
+public abstract class BaseRawController<T> : ControllerBase
 {
     #region Ctor
 
-    private readonly IBaseService<T> _service;
+    protected readonly IBaseService<T> _service;
 
-    public BaseController(IBaseService<T> service)
+    public BaseRawController(IBaseService<T> service)
     {
         _service = service;
     }

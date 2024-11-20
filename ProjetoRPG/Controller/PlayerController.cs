@@ -3,11 +3,12 @@ using ProjetoRPG.Classes;
 using ProjetoRPG.Domain.DTOs;
 using ProjetoRPG.Enums;
 using ProjetoRPG.Game;
+using ProjetoRPG.Service;
 using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Controller;
 
-public class PlayerController(IBaseService<Player> service) : BaseController<Player>(service)
+public class PlayerController(PlayerService serv): BaseController<Player>(serv)
 {
     [HttpPost]
     public virtual async Task<IActionResult> NewPlayer([FromBody] NewPlayerDto dto)
@@ -21,7 +22,7 @@ public class PlayerController(IBaseService<Player> service) : BaseController<Pla
             {
                 Character = CharacterFabric.CreateCharacter(dto.ClassType, characterDto)
             };
-            var ret = await _service.Save(player);
+            var ret = await serv.Save(player);
             
             return Ok(ret);
         }

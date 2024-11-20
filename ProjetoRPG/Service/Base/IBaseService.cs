@@ -1,4 +1,6 @@
-﻿namespace ProjetoRPG.Service.Base;
+﻿using ProjetoRPG.Levels.DTOs;
+
+namespace ProjetoRPG.Service.Base;
 
 public interface IBaseService<T>
 {

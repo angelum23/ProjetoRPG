@@ -2,16 +2,13 @@
 using ProjetoRPG.Classes;
 using ProjetoRPG.Classes.Base;
 using ProjetoRPG.Domain.DTOs;
+using ProjetoRPG.Service;
 using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Controller;
 
-public class CharacterController : BaseController<Character>
+public class CharacterController(CharacterService serv) : BaseController<Character>(serv)
 {
-    public CharacterController(IBaseService<Character> service) : base(service)
-    {
-    }
-
     public override Task<IActionResult> Save(Character entity)
     {
         throw new NotSupportedException("Use NewCharacter endpoint.");
@@ -24,7 +21,7 @@ public class CharacterController : BaseController<Character>
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var ret = await _service.Save(CharacterFabric.CreateCharacter(dto.ClassType, dto));
+            var ret = await serv.Save(CharacterFabric.CreateCharacter(dto.ClassType, dto));
             
             return Ok(ret);
         }

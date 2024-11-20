@@ -63,7 +63,7 @@ public class Character : BaseEntity, ICharacter
     public float TotalMana  { get; set; }
     public float CurrentMana  { get; set; }
     public float ManaRegeneration { get; set; }
-    public int Gold { get; set; }
+    public double Gold { get; set; }
     public float Level { get; set; }
     public float XpPerc { get; set; }
     public EnumMobType MobType { get; set; }
