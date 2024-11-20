@@ -20,7 +20,7 @@ public interface ICharacter
     float TotalMana  { get; protected set; }
     float CurrentMana  { get; protected set; }
     float ManaRegeneration { get; protected set; }
-    int Gold { get; protected set; }
+    double Gold { get; protected set; }
     float Level { get; protected set; }
     float XpPerc { get; protected set; }
     EnumMobType MobType { get; protected set; }

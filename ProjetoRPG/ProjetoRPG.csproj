@@ -11,7 +11,6 @@
       <Compile Remove="Levels\Area.cs" />
       <Compile Remove="Enums\LootType.cs" />
       <Compile Remove="Levels\IArea.cs" />
-      <Compile Remove="Domain\Levels\IScene.cs" />
     </ItemGroup>
 
     <ItemGroup>
