@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using ProjetoRPG.Classes;
 using ProjetoRPG.Domain.DTOs;
 using ProjetoRPG.Enums;
@@ -17,12 +19,7 @@ public class PlayerController(PlayerService serv): BaseController<Player>(serv)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var characterDto = new CreateCharacterDto(dto.Name, EnumMobType.Player);
-            var player = new Player
-            {
-                Character = CharacterFabric.CreateCharacter(dto.ClassType, characterDto)
-            };
-            var ret = await serv.Save(player);
+            var ret = await serv.NewPlayer(dto);
             
             return Ok(ret);
         }

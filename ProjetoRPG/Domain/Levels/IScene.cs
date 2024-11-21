@@ -8,4 +8,5 @@ public interface IScene
     public string Description { get; set; }
     public EnumSceneType SceneType { get; set; }
     public Scene NextScene { get; set; }
+    IScene GetLastScene();
 }

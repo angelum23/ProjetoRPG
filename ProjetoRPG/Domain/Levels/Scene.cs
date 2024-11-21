@@ -10,7 +10,7 @@ public abstract class Scene : BaseEntity, IScene
     public EnumSceneType SceneType { get; set; }
     public Scene? NextScene { get; set; }
 
-    public Scene GetLastScene()
+    public IScene GetLastScene()
     {
         if(NextScene == null)
         {

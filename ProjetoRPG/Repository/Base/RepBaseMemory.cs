@@ -11,7 +11,7 @@ namespace ProjetoRPG.Repository.Base
 
         public IQueryable<TEntity> Get()
         {
-            return _list.AsQueryable();
+            return _list.AsQueryable().Where(e => !e.Removed);
         }
 
         public IQueryable<TEntity> GetRemoved()
@@ -25,6 +25,11 @@ namespace ProjetoRPG.Repository.Base
             if (entity == null)
             {
                 throw new Exception("Register not found!");
+            }
+
+            if (entity.Removed)
+            {
+                throw new Exception("Register was removed!");
             }
             return entity;
         }
@@ -40,8 +45,21 @@ namespace ProjetoRPG.Repository.Base
             {
                 throw new Exception("Register already exists!");
             }
+
+            TrySetId(entity);
+            
             _list.Add(entity);
             return Task.CompletedTask;
+        }
+        
+        private void TrySetId(TEntity entity)
+        {
+            if (entity.Id != 0)
+            {
+                return;
+            }
+            
+            entity.Id = _list.Any() ? _list.Max(t => t.Id) + 1 : 1;
         }
 
         public Task UpdateAsync(TEntity entity)

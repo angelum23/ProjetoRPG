@@ -1,5 +1,6 @@
 ﻿using ProjetoRPG.Base;
 using ProjetoRPG.Enums;
+using ProjetoRPG.Game;
 using ProjetoRPG.Repository;
 using ProjetoRPG.Repository.Base;
 
@@ -17,7 +18,9 @@ public class BuilderServices
     [];
     
     private static List<Service> GetScopedList() =>
-    [];
+    [
+        new Service{ ServiceType = typeof(Player) }
+    ];
     
     #region GetAllAndAddServices
     public List<ServiceBuilder> GetServiceList() =>

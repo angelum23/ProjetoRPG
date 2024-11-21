@@ -6,6 +6,7 @@ public class Inventory
 {
     public List<Item> Items { get; }
     public int Capacity { get; set; } = 60;
+    public double Gold { get; set; }
     
     #region Methods
     public void AddItem(Item item)

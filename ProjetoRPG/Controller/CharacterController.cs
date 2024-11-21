@@ -14,7 +14,7 @@ public class CharacterController(CharacterService serv) : BaseController<Charact
         throw new NotSupportedException("Use NewCharacter endpoint.");
     }
 
-    [HttpPost]
+    [HttpPost]  
     public virtual async Task<IActionResult> NewCharacter([FromBody] NewCharacterDto dto)
     {
         try
