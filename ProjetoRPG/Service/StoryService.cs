@@ -8,21 +8,23 @@ namespace ProjetoRPG.Service;
 
 public class StoryService : BaseService<Story>, ISceneService
 {
+    private readonly RepStory? _repStory;
     public StoryService(IServiceProvider serviceProvider) : base(serviceProvider.GetService<RepStory>())
     {
+        _repStory = serviceProvider.GetService<RepStory>();
     }
 
+    public new async Task<Scene?> GetByIdAsync(int storyId)
+    {
+        if (_repStory == null)
+        {
+            throw new Exception("Story repository not found.");
+        }
+        
+        return await _repStory!.GetByIdAsync(storyId);
+    }
+    
     public void Act()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void StartScene()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void EndScene()
     {
         throw new NotImplementedException();
     }
