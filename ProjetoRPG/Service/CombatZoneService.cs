@@ -24,8 +24,8 @@ public class CombatZoneService : BaseService<CombatZone>, ISceneService
         throw new NotImplementedException();
     }
 
-    public new Task<Scene?> GetByIdAsync(int sceneId)
+    public async Task Save(IScene entity)
     {
-        throw new NotImplementedException();
+        await base.Save((CombatZone)entity);
     }
 }

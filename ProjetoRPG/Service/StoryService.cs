@@ -14,7 +14,7 @@ public class StoryService : BaseService<Story>, ISceneService
         _repStory = serviceProvider.GetService<RepStory>();
     }
 
-    public new async Task<Scene?> GetByIdAsync(int storyId)
+    public new async Task<IScene?> GetByIdAsync(int storyId)
     {
         if (_repStory == null)
         {
@@ -32,5 +32,10 @@ public class StoryService : BaseService<Story>, ISceneService
     public void StartNextScene()
     {
         throw new NotImplementedException();
+    }
+    
+    public async Task Save(IScene entity)
+    {
+        await base.Save((Story)entity);
     }
 }

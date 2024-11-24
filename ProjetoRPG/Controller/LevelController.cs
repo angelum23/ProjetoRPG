@@ -1,4 +1,6 @@
-﻿using ProjetoRPG.Enums;
+﻿using Microsoft.AspNetCore.Mvc;
+using ProjetoRPG.Domain.DTOs;
+using ProjetoRPG.Enums;
 using ProjetoRPG.Levels;
 using ProjetoRPG.Levels.DTOs;
 using ProjetoRPG.Service;
@@ -14,16 +16,16 @@ public class LevelController : BaseController<Level>
         _service = service;
     }
     
-    public void AddScene(AddSceneDto dto)
+    public IActionResult NewLevel([FromBody] NewLevelDto levelDto)
     {
         try
         {
-            _service.AddScene(dto);
+            var level = _service.NewLevel(levelDto);
+            return Ok(level);
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            return BadRequest(e.Message);
         }
     }
 }

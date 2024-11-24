@@ -1,12 +1,12 @@
-﻿using ProjetoRPG.Enums;
+﻿using ProjetoRPG.Base;
+using ProjetoRPG.Enums;
 
 namespace ProjetoRPG.Levels;
 
-public class Story : Scene
+public class Story : BaseEntity, IScene
 {
-    public void Act()
-    {
-        //Todo: Lucas: Implementar método que grava a mensagem da história em um arquivo de texto no computador.
-        //Da pra fazer um arquivo FileHelper e deixar a lógica de criar arquivo, escrever e ler arquivo lá.
-    }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public EnumSceneType SceneType { get; set; }
+    public IScene? NextScene { get; set; }
 }
