@@ -1,6 +1,6 @@
 ﻿namespace ProjetoRPG.Enums;
 
-public enum LootType
+public enum EnumLootType
 {
     
 }

@@ -56,7 +56,7 @@ public abstract class BaseRawController<T> : ControllerBase
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             
-            var ret = await _service.Save(entity);
+            var ret = await _service.SaveAsync(entity);
             
             return Ok(ret);
         }

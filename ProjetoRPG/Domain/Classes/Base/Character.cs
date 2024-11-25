@@ -1,6 +1,7 @@
 ﻿using ProjetoRPG.Base;
 using ProjetoRPG.Domain.Classes;
 using ProjetoRPG.Enums;
+using ProjetoRPG.Items.Base;
 
 namespace ProjetoRPG.Classes.Base;
 
@@ -72,6 +73,36 @@ public class Character : BaseEntity, ICharacter
     #endregion
     
     #region Methods
+    
+    public void AddStatus(Item item)
+    {
+        TotalHealth += item.BonusTotalHealth;
+        Regeneration += item.BonusRegeneration;
+        Armor += item.BonusArmor;
+        MagicResist += item.BonusMagicResist;
+        Agility += item.BonusAgility;
+        TotalMana += item.BonusTotalMana;
+        ManaRegeneration += item.BonusManaRegeneration;
+        Damage += item.BonusDamage;
+        Accuracy += item.BonusAccuracy;
+        Range += item.BonusRange;
+        MagicDamage += item.BonusMagicDamage;
+    }
+    
+    public void RemoveStatus(Item item)
+    {
+        TotalHealth -= item.BonusTotalHealth;
+        Regeneration -= item.BonusRegeneration;
+        Armor -= item.BonusArmor;
+        MagicResist -= item.BonusMagicResist;
+        Agility -= item.BonusAgility;
+        TotalMana -= item.BonusTotalMana;
+        ManaRegeneration -= item.BonusManaRegeneration;
+        Damage -= item.BonusDamage;
+        Accuracy -= item.BonusAccuracy;
+        Range -= item.BonusRange;
+        MagicDamage -= item.BonusMagicDamage;
+    }
     public void ReceiveGold(int amount)
     {
         Gold += amount;

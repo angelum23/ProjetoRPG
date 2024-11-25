@@ -7,5 +7,5 @@ public interface ISceneService
     public void Act();
 
     public void StartNextScene();
-    Task<Scene?> GetByIdAsync(int sceneId);
+    Task Save(IScene entity);
 }

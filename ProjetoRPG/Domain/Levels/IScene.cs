@@ -7,6 +7,5 @@ public interface IScene
     public string Name { get; set; }
     public string Description { get; set; }
     public EnumSceneType SceneType { get; set; }
-    public Scene NextScene { get; set; }
-    IScene GetLastScene();
+    public IScene? NextScene { get; set; }
 }

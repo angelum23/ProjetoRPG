@@ -6,15 +6,15 @@ using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;
 
-public class StoryService : BaseService<Story>, ISceneService
+public class ServStory : BaseService<Story>, ISceneService
 {
     private readonly RepStory? _repStory;
-    public StoryService(IServiceProvider serviceProvider) : base(serviceProvider.GetService<RepStory>())
+    public ServStory(IServiceProvider serviceProvider) : base(serviceProvider.GetService<RepStory>())
     {
         _repStory = serviceProvider.GetService<RepStory>();
     }
 
-    public new async Task<Scene?> GetByIdAsync(int storyId)
+    public new async Task<IScene?> GetByIdAsync(int storyId)
     {
         if (_repStory == null)
         {
@@ -32,5 +32,10 @@ public class StoryService : BaseService<Story>, ISceneService
     public void StartNextScene()
     {
         throw new NotImplementedException();
+    }
+    
+    public async Task Save(IScene entity)
+    {
+        await base.SaveAsync((Story)entity);
     }
 }

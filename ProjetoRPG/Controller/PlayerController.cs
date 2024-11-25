@@ -10,10 +10,10 @@ using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Controller;
 
-public class PlayerController(PlayerService serv): BaseController<Player>(serv)
+public class PlayerController(ServPlayer serv): BaseController<Player>(serv)
 {
     [HttpPost]
-    public virtual async Task<IActionResult> NewPlayer([FromBody] NewPlayerDto dto)
+    public async Task<IActionResult> NewPlayer([FromBody] NewPlayerDto dto)
     {
         try
         {
@@ -27,5 +27,44 @@ public class PlayerController(PlayerService serv): BaseController<Player>(serv)
         {
             throw new Exception(e.Message);
         }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> OpenInventory([FromBody] int playerId)
+    {
+        try
+        {
+            return Ok(await serv.OpenInventoryAsync(playerId));
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
     } 
+    
+    [HttpPost]
+    public async Task<IActionResult> UseItem([FromBody] UseItemDto dto)
+    {
+        try
+        {
+            await serv.UseItem(dto);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+    
+    public async Task<IActionResult> GetEquipments([FromBody] int playerId)
+    {
+        try
+        {
+            return Ok(await serv.GetEquipments(playerId));
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
 }
