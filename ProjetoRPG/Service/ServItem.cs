@@ -1,25 +1,31 @@
 ﻿using ProjetoRPG.Enums;
 using ProjetoRPG.Items.Base;
+using ProjetoRPG.Repository;
 using ProjetoRPG.Repository.Base;
 using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;
 
-public class ItemService : BaseService<Item>
+public class ServItem : BaseService<Item>
 {
-    private readonly IRepBase<Item>? _rep;
+    private readonly RepItem _rep;
 
-    private ItemService(IRepBase<Item>? rep) : base(rep)
+    private ServItem(RepItem rep) : base(rep)
     {
         _rep = rep;
     }
     
-    public override async Task<Item> Save(Item item)
+    public override async Task<Item> SaveAsync(Item item)
     {
         ValidarTiposDeItens(item);
-        await base.Save(item);
+        await base.SaveAsync(item);
         
         return item;
+    }
+    
+    public async Task<Item> GetEquipments(int inventoryId)
+    {
+        return _rep.GetEquipments(inventoryId);
     }
 
     private void ValidarTiposDeItens(Item item)

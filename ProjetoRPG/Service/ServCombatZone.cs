@@ -6,10 +6,10 @@ using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;
 
-public class CombatZoneService : BaseService<CombatZone>, ISceneService
+public class ServCombatZone : BaseService<CombatZone>, ISceneService
 {
     private readonly RepCombatZone? _repCombatZone;
-    public CombatZoneService(IServiceProvider serviceProvider) : base(serviceProvider.GetService<RepCombatZone>())
+    public ServCombatZone(IServiceProvider serviceProvider) : base(serviceProvider.GetService<RepCombatZone>())
     {
         _repCombatZone = serviceProvider.GetService<RepCombatZone>();
     }
@@ -26,6 +26,6 @@ public class CombatZoneService : BaseService<CombatZone>, ISceneService
 
     public async Task Save(IScene entity)
     {
-        await base.Save((CombatZone)entity);
+        await base.SaveAsync((CombatZone)entity);
     }
 }

@@ -22,7 +22,7 @@ public abstract class BaseService<T>(IRepBase<T> rep) : IBaseService<T> where T 
         return await rep.GetByIdAsync(id);
     }
     
-    public virtual async Task<T> Save(T entity)
+    public virtual async Task<T> SaveAsync(T entity)
     {
         await rep.SaveAsync(entity);
         return entity;

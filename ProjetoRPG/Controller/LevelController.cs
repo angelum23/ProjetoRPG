@@ -10,8 +10,8 @@ namespace ProjetoRPG.Controller;
 
 public class LevelController : BaseController<Level>
 {
-    private readonly LevelService _service;
-    public LevelController(LevelService service) : base(service)
+    private readonly ServLevel _service;
+    public LevelController(ServLevel service) : base(service)
     {
         _service = service;
     }

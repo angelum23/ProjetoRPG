@@ -7,7 +7,7 @@ using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Controller;
 
-public class CharacterController(CharacterService serv) : BaseController<Character>(serv)
+public class CharacterController(ServCharacter serv) : BaseController<Character>(serv)
 {
     public override Task<IActionResult> Save(Character entity)
     {
@@ -21,7 +21,7 @@ public class CharacterController(CharacterService serv) : BaseController<Charact
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var ret = await serv.Save(CharacterFabric.CreateCharacter(dto.ClassType, dto));
+            var ret = await serv.SaveAsync(CharacterFabric.CreateCharacter(dto.ClassType, dto));
             
             return Ok(ret);
         }

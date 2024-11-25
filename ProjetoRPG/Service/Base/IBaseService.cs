@@ -4,7 +4,7 @@ namespace ProjetoRPG.Service.Base;
 
 public interface IBaseService<T>
 {
-    Task<T> Save(T entity);
+    Task<T> SaveAsync(T entity);
     Task<List<T>> GetAllAsync();
     IQueryable<T> Get();
     Task<T> GetByIdAsync(int id);

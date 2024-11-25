@@ -22,5 +22,4 @@ public class ApplicationDbContext : DbContext
     //Level
     public DbSet<Level> Level { get; set; }
     public DbSet<CombatZone> Zone { get; set; }
-    public DbSet<ZoneEnemy> ZoneEnemy { get; set; }
 }

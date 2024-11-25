@@ -10,7 +10,7 @@ using ProjetoRPG.Service.Factory;
 
 namespace ProjetoRPG.Service;
 
-public class LevelService(RepLevel rep, PlayerService playerService, RepStory repStory, RepCombatZone repCombatZone, IServiceProvider serviceProvider) : BaseService<Level>(rep)
+public class ServLevel(RepLevel rep, ServPlayer servPlayer, RepStory repStory, RepCombatZone repCombatZone, IServiceProvider serviceProvider) : BaseService<Level>(rep)
 {
     private IServiceProvider _serviceProvider = serviceProvider;
 
@@ -23,7 +23,7 @@ public class LevelService(RepLevel rep, PlayerService playerService, RepStory re
             return;
         }
         
-        var player = await playerService.GetPlayer();
+        var player = await servPlayer.GetPlayer();
         player.Inventory.Gold += level.GoldReward;
         Console.WriteLine($"Level {level.Name} completed. You received {level.GoldReward} gold.");
     }

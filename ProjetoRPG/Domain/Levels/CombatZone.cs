@@ -11,11 +11,12 @@ public class CombatZone : BaseEntity, IScene
 {
     public string Name { get; set; }
     public string Description { get; set; }
-    public EnumSceneType SceneType { get; set; }
+    public EnumSceneType SceneType { get; set; } = EnumSceneType.Zone;
+    
     public IScene? NextScene { get; set; }
-    public int IdCharacter { get; set; }
-    public Player Player { get; set; }
+    
+    public int IdEnemy { get; set; }
     public Character Enemy { get; set; }
     public int DropPerc { get; set; } = 100;
-    public List<Item> Loots { get; set; }
+    public Item Loot { get; set; }
 }

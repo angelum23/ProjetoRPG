@@ -1,11 +1,12 @@
 ﻿using ProjetoRPG.Enums;
+using ProjetoRPG.Levels;
 using ProjetoRPG.Levels.DTOs;
 
-namespace ProjetoRPG.Levels.Base;
+namespace ProjetoRPG.Domain.Levels.Base;
 
 public class SceneFactory
 {
-    public static Scene CreateScene(EnumSceneType sceneType, NewSceneDto dto)
+    public static IScene CreateScene(EnumSceneType sceneType, NewSceneDto dto)
     {
         return sceneType switch
         {

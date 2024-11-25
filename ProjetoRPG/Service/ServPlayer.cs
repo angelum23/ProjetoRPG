@@ -3,14 +3,15 @@ using ProjetoRPG.Classes;
 using ProjetoRPG.Domain.DTOs;
 using ProjetoRPG.Enums;
 using ProjetoRPG.Game;
+using ProjetoRPG.Items.Base;
 using ProjetoRPG.Repository;
 using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;
 
-public class PlayerService(RepPlayer rep) : BaseService<Player>(rep)
+public class ServPlayer(RepPlayer rep, ServInventory servInventory, ServItem servItem) : BaseService<Player>(rep)
 {
-    public override Task<Player> Save(Player entity)
+    public override Task<Player> SaveAsync(Player entity)
     {
         throw new NotSupportedException();
     }
@@ -45,5 +46,31 @@ public class PlayerService(RepPlayer rep) : BaseService<Player>(rep)
         var player = await GetPlayer();
         player.Remove();
         await rep.SaveAsync(player);
+    }
+
+    public async Task<List<Item>> OpenInventoryAsync(int idPlayer)
+    {
+        var player = await rep.GetByIdAsync(idPlayer);
+        return await servInventory.OpenInventoryAsync(player.IdInventory);
+    }
+
+    public async Task UseItem(UseItemDto dto)
+    {
+        var item = await servItem.GetByIdAsync(dto.IdItem);
+        var player = await base.GetByIdAsync(dto.IdPlayer);
+
+        if (item.ItemType == EnumItemType.Armor)
+        {
+            await servInventory.EquipArmor(player.IdInventory, item.Id);
+        }
+        else
+        {
+            await servInventory.EquipWeapon(player.IdInventory, item.Id);
+        }
+    }
+
+    public async Task<object?> GetEquipments(int playerId)
+    {
+        return await servItem.GetEquipments(playerId);
     }
 }
