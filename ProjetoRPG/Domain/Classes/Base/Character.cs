@@ -113,7 +113,7 @@ public class Character : BaseEntitySubject, ICharacter
     {
         Gold -= amount;
     }
-    public virtual void Defend(float damage)
+    public virtual void TakeDamage(float damage)
     {
         var damageTaken = Math.Max(0, damage);
         
@@ -133,7 +133,7 @@ public class Character : BaseEntitySubject, ICharacter
             return;
         }
         
-        enemy.Defend(this);
+        enemy.TakeDamage(Damage / enemy.Armor);
     }
 
     public virtual void MagicAtack(Character enemy)
