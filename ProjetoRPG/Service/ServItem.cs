@@ -6,15 +6,8 @@ using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;
 
-public class ServItem : BaseService<Item>
+public class ServItem(RepItem repItem, RepInventory repInventory) : BaseService<Item>(repItem)
 {
-    private readonly RepItem _rep;
-
-    private ServItem(RepItem rep) : base(rep)
-    {
-        _rep = rep;
-    }
-    
     public override async Task<Item> SaveAsync(Item item)
     {
         ValidarTiposDeItens(item);
@@ -23,9 +16,25 @@ public class ServItem : BaseService<Item>
         return item;
     }
     
-    public async Task<Item> GetEquipments(int inventoryId)
+    public async Task<List<Item>> GetEquipments(int inventoryId)
     {
-        return _rep.GetEquipments(inventoryId);
+        var inventory = await repInventory.GetByIdAsync(inventoryId);
+        if (!inventory.IdEquippedArmor.HasValue && !inventory.IdEquippedWeapon.HasValue)
+        {
+            throw new Exception("You have no equipment!");
+        }
+        
+        var items = new List<Item>();
+        if (inventory.IdEquippedArmor.HasValue)
+        {
+            items.Add(await repItem.GetByIdAsync(inventory.IdEquippedArmor.Value));
+        }
+        if (inventory.IdEquippedWeapon.HasValue)
+        {
+            items.Add(await repItem.GetByIdAsync(inventory.IdEquippedWeapon.Value));
+        }
+
+        return items;
     }
 
     private void ValidarTiposDeItens(Item item)

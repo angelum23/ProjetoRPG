@@ -5,7 +5,7 @@ using ProjetoRPG.Items.Base;
 
 namespace ProjetoRPG.Classes.Base;
 
-public class Character : BaseEntity, ICharacter
+public class Character : BaseEntitySubject, ICharacter
 {
     #region Constructor
     public Character(string name, 
@@ -102,6 +102,8 @@ public class Character : BaseEntity, ICharacter
         Accuracy -= item.BonusAccuracy;
         Range -= item.BonusRange;
         MagicDamage -= item.BonusMagicDamage;
+        
+        
     }
     public void ReceiveGold(int amount)
     {
@@ -111,18 +113,16 @@ public class Character : BaseEntity, ICharacter
     {
         Gold -= amount;
     }
-    public virtual void Defend(Character enemy)
+    public virtual void Defend(float damage)
     {
-        float damageTaken = Math.Max(0, enemy.Damage - Armor);
+        var damageTaken = Math.Max(0, damage);
+        
         CurrentHealth -= damageTaken;
+
+        ValidateDead();
+        
         Console.WriteLine(damageTaken + " damage was taken!");
         Console.WriteLine(CurrentHealth + " health left!");
-    }
-
-    public virtual void MagicDefend(Character enemy)
-    {
-        float damageTaken = Math.Max(0, enemy.MagicDamage - MagicResist);
-        CurrentHealth -= damageTaken;
     }
     
     public virtual void Attack(Character enemy)
@@ -172,6 +172,22 @@ public class Character : BaseEntity, ICharacter
         Agility *= 1.1f;
         MagicDamage *= 1.1f;
         ManaRegeneration *= 1.1f;
+    }
+    
+    private bool ValidateDead()
+    {
+        var isDead = CurrentHealth <= 0;
+
+        if (isDead)
+        {
+            var trigger = MobType == EnumMobType.Player
+                ? EnumObserverTrigger.OnPlayerCharacterDeath
+                : EnumObserverTrigger.OnEnemyCharacterDeath;
+            
+            NotifyObservers(trigger);
+        }
+
+        return isDead;
     }
     #endregion
 }

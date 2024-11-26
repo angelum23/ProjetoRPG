@@ -38,7 +38,27 @@ public class ServCharacter(RepCharacter rep, ServItem servItem) : BaseService<Ch
         
         await rep.SaveAsync(character);
         return character;
-
-        //todo Perguntar ao vitão se vale a pena validar la no inventory se o item está equipado, sendo que o character não deve saber que tem um inventory e nem o que é um inventory
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -19,4 +19,11 @@ public class CombatZone : BaseEntity, IScene
     public Character Enemy { get; set; }
     public int DropPerc { get; set; } = 100;
     public Item Loot { get; set; }
+
+    public int GetId()
+    {
+        return Id;
+    }
+
+    public bool Persisted() => Id > 0;
 }

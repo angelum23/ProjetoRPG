@@ -9,9 +9,9 @@ namespace ProjetoRPG.Service;
 public class ServStory : BaseService<Story>, ISceneService
 {
     private readonly RepStory? _repStory;
-    public ServStory(IServiceProvider serviceProvider) : base(serviceProvider.GetService<RepStory>())
+    public ServStory(IServiceProvider serviceProvider) : base(serviceProvider.GetRequiredService<RepStory>())
     {
-        _repStory = serviceProvider.GetService<RepStory>();
+        _repStory = serviceProvider.GetRequiredService<RepStory>();
     }
 
     public new async Task<IScene?> GetByIdAsync(int storyId)

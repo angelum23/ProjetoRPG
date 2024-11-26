@@ -69,7 +69,7 @@ public class ServPlayer(RepPlayer rep, ServInventory servInventory, ServItem ser
         }
     }
 
-    public async Task<object?> GetEquipments(int playerId)
+    public async Task<List<Item>> GetEquipments(int playerId)
     {
         return await servItem.GetEquipments(playerId);
     }
