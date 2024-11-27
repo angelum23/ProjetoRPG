@@ -16,10 +16,14 @@ public class ServLevel(RepLevel rep, ServPlayer servPlayer, RepStory repStory, R
 
     public async void StartNextScene(Level level)
     {
-        level.ActualScene = level.ActualScene?.NextScene;
-        
-        if(level.ActualScene != null)
+        var sceneServiceFactory = new SceneServiceFactory(_serviceProvider);
+        var service = sceneServiceFactory.CreateSceneService(level.ActualSceneType);
+
+        var actualScene = await service.GetById(level.IdActualScene);
+        if (actualScene.IdNextScene != null)
         {
+            level.IdActualScene = actualScene.IdNextScene.Value;
+            await rep.UpdateAsync(level);
             return;
         }
         

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoRPG.Classes;
+using ProjetoRPG.Classes.Base;
 using ProjetoRPG.Domain.DTOs;
 using ProjetoRPG.Enums;
 using ProjetoRPG.Game;
@@ -9,7 +10,7 @@ using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;
 
-public class ServPlayer(RepPlayer rep, ServInventory servInventory, ServItem servItem) : BaseService<Player>(rep)
+public class ServPlayer(RepPlayer rep, ServInventory servInventory, ServItem servItem, ServLevel servLevel, ServCombatZone servCombatZone, ServCharacter servCharacter) : BaseService<Player>(rep)
 {
     public override Task<Player> SaveAsync(Player entity)
     {
@@ -72,5 +73,18 @@ public class ServPlayer(RepPlayer rep, ServInventory servInventory, ServItem ser
     public async Task<List<Item>> GetEquipments(int playerId)
     {
         return await servItem.GetEquipments(playerId);
+    }
+
+    public async Task<Character> GetEnemy(int playerId)
+    {
+        var player = await base.GetByIdAsync(playerId);
+        var level = await servLevel.GetByIdAsync(player.IdCurrentLevel);
+        if (level.ActualSceneType != EnumSceneType.CombatZone)
+        {
+            throw new Exception("You are not in a combat zone.");
+        }
+
+        var combatZone = await servCombatZone.GetByIdAsync(level.IdActualScene);
+        return await servCharacter.GetByIdAsync(combatZone.IdEnemy);
     }
 }

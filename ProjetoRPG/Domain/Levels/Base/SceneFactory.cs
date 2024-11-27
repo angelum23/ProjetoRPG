@@ -11,7 +11,7 @@ public class SceneFactory
         return sceneType switch
         {
             EnumSceneType.Story => new Story(),
-            EnumSceneType.Zone => new CombatZone(),
+            EnumSceneType.CombatZone => new CombatZone(),
             _ => throw new ArgumentException("Invalid scene type.")
         };
     }

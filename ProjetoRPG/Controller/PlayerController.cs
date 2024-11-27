@@ -67,4 +67,16 @@ public class PlayerController(ServPlayer serv): BaseController<Player>(serv)
             throw new Exception(e.Message);
         }
     }
+    
+    public async Task<IActionResult> GetEnemy([FromBody] int playerId)
+    {
+        try
+        {
+            return Ok(await serv.GetEnemy(playerId));
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    } 
 }

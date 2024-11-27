@@ -5,7 +5,6 @@ namespace ProjetoRPG.Levels.Base;
 public interface ISceneService
 {
     public void Act();
-
-    public void StartNextScene();
     Task Save(IScene entity);
+    Task<IScene> GetById(int id);
 }

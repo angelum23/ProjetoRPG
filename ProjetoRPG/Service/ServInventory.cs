@@ -7,7 +7,7 @@ using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;
 
-public class ServInventory(RepInventory rep, ServInventoryItem servInventoryItem, ServItem servItem, ServPlayer servPlayer) : BaseService<Inventory>(rep)
+public class ServInventory(RepInventory rep, ServInventoryItem servInventoryItem, ServItem servItem, ServPlayer servPlayer, ServCharacter servCharacter) : BaseService<Inventory>(rep)
 {
     private readonly List<EnumItemType> _weaponTypes = [EnumItemType.Sword, EnumItemType.Bow, EnumItemType.Staff, EnumItemType.Shield];
     
@@ -62,13 +62,8 @@ public class ServInventory(RepInventory rep, ServInventoryItem servInventoryItem
         
         ValidateEquipArmor(item, inventory);
         
-        if (inventory.IdEquippedArmor.HasValue)
-        {
-            //todo Angelo: desequipar armadura no characterp
-        }
-        
+        await servCharacter.EquipArmorAsync(player.IdCharacter, idItem);
         inventory.IdEquippedArmor = idItem;
-        //todo Angelo: equipar armadura no character
     }
 
     public async Task EquipWeapon(int idPlayer, int idItem)
@@ -79,13 +74,8 @@ public class ServInventory(RepInventory rep, ServInventoryItem servInventoryItem
 
         ValidateEquipWeapon(item, inventory);
         
-        if(inventory.IdEquippedWeapon.HasValue)
-        {
-            //todo Angelo: desequipar arma no character
-        }
-        
+        await servCharacter.EquipWeaponAsync(player.IdCharacter, idItem);
         inventory.IdEquippedWeapon = idItem;
-        //todo Angelo: equipar arma no character
     }
 
     private void ValidateEquipWeapon(Item item, Inventory inventory)

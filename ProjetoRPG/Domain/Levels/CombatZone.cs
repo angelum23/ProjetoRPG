@@ -11,8 +11,9 @@ public class CombatZone : BaseEntity, IScene
 {
     public string Name { get; set; }
     public string Description { get; set; }
-    public EnumSceneType SceneType { get; set; } = EnumSceneType.Zone;
+    public EnumSceneType SceneType { get; set; } = EnumSceneType.CombatZone;
     
+    public int? IdNextScene { get; set; }
     public IScene? NextScene { get; set; }
     
     public int IdEnemy { get; set; }
