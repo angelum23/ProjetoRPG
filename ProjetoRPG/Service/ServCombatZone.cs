@@ -9,9 +9,9 @@ namespace ProjetoRPG.Service;
 public class ServCombatZone : BaseService<CombatZone>, ISceneService
 {
     private readonly RepCombatZone? _repCombatZone;
-    public ServCombatZone(IServiceProvider serviceProvider) : base(serviceProvider.GetService<RepCombatZone>())
+    public ServCombatZone(IServiceProvider serviceProvider) : base(serviceProvider.GetRequiredService<RepCombatZone>())
     {
-        _repCombatZone = serviceProvider.GetService<RepCombatZone>();
+        _repCombatZone = serviceProvider.GetRequiredService<RepCombatZone>();
     }
     
     public void Act()

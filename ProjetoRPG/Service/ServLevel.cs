@@ -41,7 +41,7 @@ public class ServLevel(RepLevel rep, ServPlayer servPlayer, RepStory repStory, R
             GoldReward = dto.GoldReward
         };
 
-        var scenes = dto.Scenes;
+        await AddScenes(level, dto.Scenes);
         
         await rep.AddAsync(level);
         return level;
@@ -52,16 +52,22 @@ public class ServLevel(RepLevel rep, ServPlayer servPlayer, RepStory repStory, R
         if (scenes == null || scenes.Count == 0)
             throw new ArgumentException("The scenes list cannot be null or empty.");
 
-        level.ActualScene = scenes[0];
         var sceneServiceFactory = new SceneServiceFactory(_serviceProvider);
+        
+        IScene previousScene = new Story();
 
-        for (var i = 0; i < scenes.Count; i++)
+        var scenesInverse = scenes.AsEnumerable().Reverse();
+        foreach (var scene in scenesInverse)
         {
-            var currentScene = scenes[i];
-            currentScene.NextScene = (i + 1 < scenes.Count) ? scenes[i + 1] : null;
-
-            var sceneService = sceneServiceFactory.CreateSceneService(currentScene.SceneType);
-            await sceneService.Save(currentScene);
+            var service = sceneServiceFactory.CreateSceneService(scene.SceneType);
+            if (previousScene.Persisted())
+            {
+                scene.IdNextScene = previousScene.GetId();
+                scene.NextScene = previousScene;
+            }
+            
+            await service.Save(scene);
+            previousScene = scene;
         }
     }
 }
