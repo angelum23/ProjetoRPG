@@ -56,7 +56,7 @@ namespace ProjetoRPG.Repository.Base
         {
             if (entity.Id != 0)
             {
-                return;
+                throw new Exception("Entity already has an Id!");
             }
             
             entity.Id = _list.Any() ? _list.Max(t => t.Id) + 1 : 1;

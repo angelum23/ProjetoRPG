@@ -1,6 +1,6 @@
-﻿using ProjetoRPG.Enums;
+﻿using ProjetoRPG.Domain.DTOs;
+using ProjetoRPG.Enums;
 using ProjetoRPG.Levels;
-using ProjetoRPG.Levels.DTOs;
 
 namespace ProjetoRPG.Domain.Levels.Base;
 

@@ -1,16 +1,15 @@
 ﻿using ProjetoRPG.Domain.DTOs;
-using ProjetoRPG.Enums;
-using ProjetoRPG.Game;
 using ProjetoRPG.Levels;
-using ProjetoRPG.Levels.Base;
-using ProjetoRPG.Levels.DTOs;
 using ProjetoRPG.Repository;
 using ProjetoRPG.Service.Base;
 using ProjetoRPG.Service.Factory;
+using ProjetoRPG.Domain.DTOs;
+using ProjetoRPG.Enums;
+using ProjetoRPG.Levels.Base;
 
 namespace ProjetoRPG.Service;
 
-public class ServLevel(RepLevel rep, ServPlayer servPlayer, RepStory repStory, RepCombatZone repCombatZone, IServiceProvider serviceProvider) : BaseService<Level>(rep)
+public class ServLevel(RepLevel rep, ServPlayer servPlayer, RepStory repStory, RepCombatZone repCombatZone, RepCharacter repCharacter, IServiceProvider serviceProvider, RepItem repItem) : BaseService<Level>(rep)
 {
     private IServiceProvider _serviceProvider = serviceProvider;
 
@@ -51,27 +50,66 @@ public class ServLevel(RepLevel rep, ServPlayer servPlayer, RepStory repStory, R
         return level;
     }
     
-    public async Task AddScenes(Level level, List<IScene> scenes)
+    private async Task AddScenes(Level level, List<NewSceneDto> dtoList)
     {
-        if (scenes == null || scenes.Count == 0)
+        if (dtoList == null || dtoList.Count == 0)
             throw new ArgumentException("The scenes list cannot be null or empty.");
 
         var sceneServiceFactory = new SceneServiceFactory(_serviceProvider);
         
         IScene previousScene = new Story();
 
-        var scenesInverse = scenes.AsEnumerable().Reverse();
-        foreach (var scene in scenesInverse)
+        var reverseDtoList = dtoList.AsEnumerable().Reverse();
+        foreach (var dto in reverseDtoList)
         {
-            var service = sceneServiceFactory.CreateSceneService(scene.SceneType);
-            if (previousScene.Persisted())
-            {
-                scene.IdNextScene = previousScene.GetId();
-                scene.NextScene = previousScene;
-            }
-            
-            await service.Save(scene);
-            previousScene = scene;
+            previousScene = await AddLevelScene(dto, previousScene, sceneServiceFactory);
         }
+        
+        level.IdFirstScene = previousScene.GetId();
+        level.IdActualScene = level.IdFirstScene;
+        
+        await rep.SaveAsync(level);
+    }
+
+    private async Task<IScene> AddLevelScene(NewSceneDto dto, IScene previousScene, SceneServiceFactory sceneServiceFactory)
+    {
+        var service = sceneServiceFactory.CreateSceneService(dto.Scene.SceneType);
+        if (previousScene.Persisted())
+        {
+            dto.Scene.IdNextScene = previousScene.GetId();
+            dto.Scene.NextScene = previousScene;
+        }
+
+        if (dto.CombatZoneDto?.Enemy?.Id != null)
+        {
+            await AddCombatZone(dto, service);
+            return dto.Scene;
+        }
+            
+        await service.Save(dto.Scene);
+        return dto.Scene;
+    }
+
+    private async Task AddCombatZone(NewSceneDto dto, ISceneService service)
+    {
+        if (dto.Scene.SceneType != EnumSceneType.CombatZone)
+            throw new ArgumentException("The scene must be a combat zone to have an enemy.");
+        
+        if(dto.CombatZoneDto?.Enemy == null)
+            throw new ArgumentException("The combat zone must have an enemy.");
+        
+        var combatZone = (CombatZone)dto.Scene;
+        
+        await repCharacter.SaveAsync(dto.CombatZoneDto.Enemy);
+        combatZone.IdEnemy = dto.CombatZoneDto.Enemy.Id;
+        
+        if (dto.CombatZoneDto.Loot?.Item != null)
+        {
+            await repItem.SaveAsync(dto.CombatZoneDto.Loot.Item);
+            combatZone.LootId = dto.CombatZoneDto.Loot.Item.Id;
+        }
+            
+
+        await service.Save(combatZone);
     }
 }
