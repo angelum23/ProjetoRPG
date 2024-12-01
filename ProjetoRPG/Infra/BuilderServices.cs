@@ -16,10 +16,8 @@ public class BuilderServices
     private static List<Service> GetSingletonList() =>
     [
         new Service { ServiceType = typeof(RepBaseMemory<>), InterfaceType = typeof(IRepBase<>)},
-        new Service { ServiceType = typeof(BaseService<>), InterfaceType = typeof(IBaseService<>)},
+        new Service { ServiceType = typeof(BaseService<BaseEntity>), InterfaceType = typeof(IBaseService<BaseEntity>)},
         new Service { ServiceType = typeof(SceneFactory), InterfaceType = typeof(ISceneService)},
-        new Service { ServiceType = typeof(RepBaseDbSet<>), InterfaceType = typeof(IRepBase<>)},
-        new Service { ServiceType = typeof(RepBaseMemory<>), InterfaceType = typeof(IRepBase<>)},
         new Service { ServiceType = typeof(RepCharacter) },
         new Service { ServiceType = typeof(RepCombatZone)},
         new Service { ServiceType = typeof(RepInventory) },
@@ -78,21 +76,21 @@ public class BuilderServices
         {
             case EnumServiceType.Scoped:
                 if (serviceBuilder.InterfaceType != null) 
-                    builder.Services.AddScoped(serviceBuilder.ServiceType, serviceBuilder.InterfaceType);
+                    builder.Services.AddScoped(serviceBuilder.InterfaceType, serviceBuilder.ServiceType);
                 else
                     builder.Services.AddScoped(serviceBuilder.ServiceType);
                 break;
         
             case EnumServiceType.Singleton:
                 if (serviceBuilder.InterfaceType != null)
-                    builder.Services.AddSingleton(serviceBuilder.ServiceType, serviceBuilder.InterfaceType);
+                    builder.Services.AddSingleton(serviceBuilder.InterfaceType, serviceBuilder.ServiceType);
                 else
                     builder.Services.AddSingleton(serviceBuilder.ServiceType);
                 break;
         
             case EnumServiceType.Transient:
                 if (serviceBuilder.InterfaceType != null)
-                    builder.Services.AddTransient(serviceBuilder.ServiceType, serviceBuilder.InterfaceType);
+                    builder.Services.AddTransient(serviceBuilder.InterfaceType, serviceBuilder.ServiceType);
                 else
                     builder.Services.AddTransient(serviceBuilder.ServiceType);
                 break;

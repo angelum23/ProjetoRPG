@@ -10,7 +10,12 @@ using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;
 
-public class ServPlayer(RepPlayer rep, ServInventory servInventory, ServItem servItem, ServLevel servLevel, ServCombatZone servCombatZone, ServCharacter servCharacter) : BaseService<Player>(rep)
+public class ServPlayer(RepPlayer rep, 
+                        ServInventory servInventory, 
+                        ServItem servItem, 
+                        ServLevel servLevel, 
+                        ServCombatZone servCombatZone, 
+                        ServCharacter servCharacter) : BaseService<Player>(rep)
 {
     public override Task<Player> SaveAsync(Player entity)
     {
@@ -32,6 +37,12 @@ public class ServPlayer(RepPlayer rep, ServInventory servInventory, ServItem ser
             Inventory = new Inventory(),
         };
 
+        await servCharacter.SaveAsync(player.Character);
+        player.IdCharacter = player.Character.Id;
+        
+        await servInventory.SaveAsync(player.Inventory);
+        player.IdInventory = player.Inventory.Id;
+        
         await rep.SaveAsync(player);
         return player;
     }
@@ -62,11 +73,11 @@ public class ServPlayer(RepPlayer rep, ServInventory servInventory, ServItem ser
 
         if (item.ItemType == EnumItemType.Armor)
         {
-            await servInventory.EquipArmor(player.IdInventory, item.Id);
+            await servInventory.EquipArmor(player.IdInventory, player.IdCharacter, item.Id);
         }
         else
         {
-            await servInventory.EquipWeapon(player.IdInventory, item.Id);
+            await servInventory.EquipWeapon(player.IdInventory, player.IdCharacter, item.Id);
         }
     }
 

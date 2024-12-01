@@ -5,7 +5,7 @@ using ProjetoRPG.Repository.Base;
 
 namespace ProjetoRPG.Service.Base;
 
-public abstract class BaseService<T>(IRepBase<T> rep) : IBaseService<T> where T : BaseEntity
+public class BaseService<T>(IRepBase<T> rep) : IBaseService<T> where T : BaseEntity
 {
     public virtual async Task<List<T>> GetAllAsync()
     {

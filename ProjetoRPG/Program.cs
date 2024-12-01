@@ -12,8 +12,8 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 
 #region DatabaseConfiguration
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+// builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 #endregion
 
@@ -22,9 +22,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 BuilderServices builderServices = new();
 var servicesBuilders = builderServices.GetServiceList();
 servicesBuilders.ForEach(sb => builderServices.AddService(sb, builder));
+builder.Services.AddControllers();
 
 #endregion
 
 var app = builder.Build();
+app.MapControllers();
 
 app.Run();

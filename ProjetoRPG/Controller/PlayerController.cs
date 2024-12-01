@@ -12,7 +12,7 @@ namespace ProjetoRPG.Controller;
 
 public class PlayerController(ServPlayer serv): BaseController<Player>(serv)
 {
-    [HttpPost]
+    [HttpPost("NewPlayer")]
     public async Task<IActionResult> NewPlayer([FromBody] NewPlayerDto dto)
     {
         try
