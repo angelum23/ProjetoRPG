@@ -1,8 +1,13 @@
 ﻿using ProjetoRPG.Base;
+using ProjetoRPG.Domain.Levels.Base;
 using ProjetoRPG.Enums;
 using ProjetoRPG.Game;
+using ProjetoRPG.Levels.Base;
 using ProjetoRPG.Repository;
 using ProjetoRPG.Repository.Base;
+using ProjetoRPG.Service;
+using ProjetoRPG.Service.Base;
+using ProjetoRPG.Service.Factory;
 
 namespace ProjetoRPG.Infra;
 
@@ -11,7 +16,27 @@ public class BuilderServices
     private static List<Service> GetSingletonList() =>
     [
         new Service { ServiceType = typeof(RepBaseMemory<>), InterfaceType = typeof(IRepBase<>)},
+        new Service { ServiceType = typeof(BaseService<>), InterfaceType = typeof(IBaseService<>)},
+        new Service { ServiceType = typeof(SceneFactory), InterfaceType = typeof(ISceneService)},
+        new Service { ServiceType = typeof(RepBaseDbSet<>), InterfaceType = typeof(IRepBase<>)},
+        new Service { ServiceType = typeof(RepBaseMemory<>), InterfaceType = typeof(IRepBase<>)},
         new Service { ServiceType = typeof(RepCharacter) },
+        new Service { ServiceType = typeof(RepCombatZone)},
+        new Service { ServiceType = typeof(RepInventory) },
+        new Service { ServiceType = typeof(RepInventoryItem)},
+        new Service { ServiceType = typeof(RepItem)},
+        new Service { ServiceType = typeof(RepLevel) },
+        new Service { ServiceType = typeof(RepPlayer)},
+        new Service { ServiceType = typeof(RepStory)},
+        new Service { ServiceType = typeof(SceneServiceFactory)},
+        new Service { ServiceType = typeof(ServCharacter)},
+        new Service { ServiceType = typeof(ServCombatZone)},
+        new Service { ServiceType = typeof(ServInventory)},
+        new Service { ServiceType = typeof(ServInventoryItem)},
+        new Service { ServiceType = typeof(ServItem)},
+        new Service { ServiceType = typeof(ServLevel)},
+        new Service { ServiceType = typeof(ServPlayer)},
+        new Service { ServiceType = typeof(ServStory)},
     ];
     
     private static List<Service> GetTransientList() =>
