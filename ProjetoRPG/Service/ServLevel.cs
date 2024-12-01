@@ -9,7 +9,7 @@ using ProjetoRPG.Levels.Base;
 
 namespace ProjetoRPG.Service;
 
-public class ServLevel(RepLevel rep, ServPlayer servPlayer, RepStory repStory, RepCombatZone repCombatZone, RepCharacter repCharacter, IServiceProvider serviceProvider, RepItem repItem) : BaseService<Level>(rep)
+public class ServLevel(RepLevel rep, RepCharacter repCharacter, IServiceProvider serviceProvider, RepItem repItem) : BaseService<Level>(rep)
 {
     private IServiceProvider _serviceProvider = serviceProvider;
 
@@ -26,9 +26,9 @@ public class ServLevel(RepLevel rep, ServPlayer servPlayer, RepStory repStory, R
             return;
         }
         
-        var player = await servPlayer.GetPlayer();
-        player.Inventory.Gold += level.GoldReward;
-        Console.WriteLine($"Level {level.Name} completed. You received {level.GoldReward} gold.");
+        // var player = await servPlayer.GetPlayer(); // Notify player with observer pattern
+        // player.Inventory.Gold += level.GoldReward;
+        // Console.WriteLine($"Level {level.Name} completed. You received {level.GoldReward} gold.");
     }
 
     public async Task<Level> NewLevel(NewLevelDto dto)

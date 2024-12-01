@@ -7,7 +7,7 @@ using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;
 
-public class ServInventory(RepInventory rep, ServInventoryItem servInventoryItem, ServItem servItem, ServPlayer servPlayer, ServCharacter servCharacter) : BaseService<Inventory>(rep)
+public class ServInventory(RepInventory rep, ServInventoryItem servInventoryItem, ServItem servItem, ServCharacter servCharacter) : BaseService<Inventory>(rep)
 {
     private readonly List<EnumItemType> _weaponTypes = [EnumItemType.Sword, EnumItemType.Bow, EnumItemType.Staff, EnumItemType.Shield];
     
@@ -54,27 +54,25 @@ public class ServInventory(RepInventory rep, ServInventoryItem servInventoryItem
         return inventoryItens.Select(x => x.Item).ToList();
     }
 
-    public async Task EquipArmor(int idPlayer, int idItem)
+    public async Task EquipArmor(int idInventory, int idCharacter, int idItem)
     {
-        var player = await servPlayer.GetByIdAsync(idPlayer);
         var item = await servItem.GetByIdAsync(idItem);
-        var inventory = await base.GetByIdAsync(player.IdInventory);
+        var inventory = await base.GetByIdAsync(idInventory);
         
         ValidateEquipArmor(item, inventory);
         
-        await servCharacter.EquipArmorAsync(player.IdCharacter, idItem);
+        await servCharacter.EquipArmorAsync(idCharacter, idItem);
         inventory.IdEquippedArmor = idItem;
     }
 
-    public async Task EquipWeapon(int idPlayer, int idItem)
+    public async Task EquipWeapon(int idInventory, int idCharacter, int idItem)
     {
-        var player = await servPlayer.GetByIdAsync(idPlayer);
         var item = await servItem.GetByIdAsync(idItem);
-        var inventory = await base.GetByIdAsync(player.IdInventory);
+        var inventory = await base.GetByIdAsync(idInventory);
 
         ValidateEquipWeapon(item, inventory);
         
-        await servCharacter.EquipWeaponAsync(player.IdCharacter, idItem);
+        await servCharacter.EquipWeaponAsync(idCharacter, idItem);
         inventory.IdEquippedWeapon = idItem;
     }
 
