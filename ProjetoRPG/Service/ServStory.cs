@@ -28,14 +28,14 @@ public class ServStory : BaseService<Story>, ISceneService
     {
         throw new NotImplementedException();
     }
-
-    public void StartNextScene()
-    {
-        throw new NotImplementedException();
-    }
     
     public async Task Save(IScene entity)
     {
         await base.SaveAsync((Story)entity);
+    }
+    
+    public async Task<IScene> GetById(int id)
+    {
+        return await base.GetByIdAsync(id);
     }
 }

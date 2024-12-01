@@ -17,7 +17,7 @@ public class SceneServiceFactory
         return sceneType switch
         {
             EnumSceneType.Story => new ServStory(_serviceProvider),
-            EnumSceneType.Zone => new ServCombatZone(_serviceProvider),
+            EnumSceneType.CombatZone => new ServCombatZone(_serviceProvider),
             _ => throw new ArgumentException("Invalid scene type.")
         };
     }

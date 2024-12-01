@@ -1,6 +1,6 @@
-﻿using ProjetoRPG.Enums;
+﻿using ProjetoRPG.Domain.DTOs;
+using ProjetoRPG.Enums;
 using ProjetoRPG.Levels;
-using ProjetoRPG.Levels.DTOs;
 
 namespace ProjetoRPG.Domain.Levels.Base;
 
@@ -11,7 +11,7 @@ public class SceneFactory
         return sceneType switch
         {
             EnumSceneType.Story => new Story(),
-            EnumSceneType.Zone => new CombatZone(),
+            EnumSceneType.CombatZone => new CombatZone(),
             _ => throw new ArgumentException("Invalid scene type.")
         };
     }
