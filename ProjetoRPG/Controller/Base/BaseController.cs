@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjetoRPG.Base;
 using ProjetoRPG.Service;
 using ProjetoRPG.Service.Base;
 
@@ -7,7 +8,7 @@ namespace ProjetoRPG.Controller;
 
 [ApiController]
 [Route("api/[controller]")]
-public abstract class BaseController<T> : ControllerBase
+public abstract class BaseController<T> : ControllerBase where T : BaseEntity
 {
     #region Ctor
 

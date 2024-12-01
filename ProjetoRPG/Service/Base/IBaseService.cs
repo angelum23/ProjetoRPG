@@ -1,8 +1,9 @@
-﻿using ProjetoRPG.Levels.DTOs;
+﻿using ProjetoRPG.Base;
+using ProjetoRPG.Levels.DTOs;
 
 namespace ProjetoRPG.Service.Base;
 
-public interface IBaseService<T>
+public interface IBaseService<T> where T : BaseEntity
 {
     Task<T> SaveAsync(T entity);
     Task<List<T>> GetAllAsync();
