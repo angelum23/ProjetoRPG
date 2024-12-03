@@ -1,6 +1,7 @@
 ﻿using ProjetoRPG.Base;
 using ProjetoRPG.Domain.Classes;
 using ProjetoRPG.Enums;
+using ProjetoRPG.Infra;
 using ProjetoRPG.Items.Base;
 
 namespace ProjetoRPG.Classes.Base;
@@ -73,6 +74,11 @@ public class Character : BaseEntitySubject, ICharacter
     #endregion
     
     #region Methods
+    public void RestoreAll()
+    {
+        CurrentHealth = TotalHealth;
+        CurrentMana = TotalMana;
+    }
     
     public void AddStatus(Item item)
     {
@@ -116,13 +122,9 @@ public class Character : BaseEntitySubject, ICharacter
     public virtual void TakeDamage(float damage)
     {
         var damageTaken = Math.Max(0, damage);
-        
         CurrentHealth -= damageTaken;
 
-        ValidateDead();
-        
-        Console.WriteLine(damageTaken + " damage was taken!");
-        Console.WriteLine(CurrentHealth + " health left!");
+        OnDeathNotifyObservers();
     }
     
     public virtual void Attack(Character enemy)
@@ -174,20 +176,15 @@ public class Character : BaseEntitySubject, ICharacter
         ManaRegeneration *= 1.1f;
     }
     
-    private bool ValidateDead()
+    private void OnDeathNotifyObservers()
     {
-        var isDead = CurrentHealth <= 0;
-
-        if (isDead)
-        {
-            var trigger = MobType == EnumMobType.Player
-                ? EnumObserverTrigger.OnPlayerCharacterDeath
-                : EnumObserverTrigger.OnEnemyCharacterDeath;
+        if (CurrentHealth > 0) return;
+        
+        var trigger = MobType == EnumMobType.Player
+            ? EnumObserverTrigger.OnPlayerCharacterDeath
+            : EnumObserverTrigger.OnEnemyCharacterDeath;
             
-            NotifyObservers(trigger);
-        }
-
-        return isDead;
+        AsyncHelper.FireAndForget(NotifyObservers(trigger));
     }
     #endregion
 }

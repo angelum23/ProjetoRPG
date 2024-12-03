@@ -1,8 +1,6 @@
-﻿using ProjetoRPG.Actions;
-using ProjetoRPG.Base;
+﻿using ProjetoRPG.Base;
 using ProjetoRPG.Classes.Base;
 using ProjetoRPG.Enums;
-using ProjetoRPG.Game;
 using ProjetoRPG.Items.Base;
 
 namespace ProjetoRPG.Levels;

@@ -1,12 +1,7 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
-using ProjetoRPG.Classes;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoRPG.Domain.DTOs;
-using ProjetoRPG.Enums;
 using ProjetoRPG.Game;
 using ProjetoRPG.Service;
-using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Controller;
 
@@ -22,6 +17,19 @@ public class PlayerController(ServPlayer serv): BaseController<Player>(serv)
             var ret = await serv.NewPlayer(dto);
             
             return Ok(ret);
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+    
+    public async Task<IActionResult> Act([FromBody] ActDto dto)
+    {
+        try
+        {
+            await serv.Act(dto);
+            return Ok();
         }
         catch (Exception e)
         {

@@ -1,10 +1,13 @@
-﻿using ProjetoRPG.Enums;
+﻿using ProjetoRPG.Classes.Base;
+using ProjetoRPG.Domain.DTOs;
+using ProjetoRPG.Enums;
+using ProjetoRPG.Game;
 
 namespace ProjetoRPG.Levels.Base;
 
 public interface ISceneService
 {
-    public void Act();
-    Task Save(IScene entity);
-    Task<IScene> GetById(int id);
+    Task Act(IScene scene, Character playerCharacter);
+    Task SaveAsync(IScene entity);
+    Task<IScene> GetByIdAsync(int id);
 }

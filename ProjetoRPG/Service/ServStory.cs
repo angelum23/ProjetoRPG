@@ -1,4 +1,6 @@
-﻿using ProjetoRPG.Levels;
+﻿using ProjetoRPG.Classes.Base;
+using ProjetoRPG.Enums;
+using ProjetoRPG.Levels;
 using ProjetoRPG.Levels.Base;
 using ProjetoRPG.Repository;
 using ProjetoRPG.Repository.Base;
@@ -13,28 +15,28 @@ public class ServStory : BaseService<Story>, ISceneService
     {
         _repStory = serviceProvider.GetRequiredService<RepStory>();
     }
-
-    public new async Task<IScene?> GetByIdAsync(int storyId)
+    
+    public async Task Act(IScene scene, Character playerCharacter)
     {
-        if (_repStory == null)
+        if (scene.SceneType != EnumSceneType.Story)
         {
-            throw new Exception("Story repository not found.");
+            throw new ArgumentException("The scene must be a story.");
         }
         
-        return await _repStory!.GetByIdAsync(storyId);
+        var story = (Story)scene;
+        var storyText = story.Description;
+        storyText = storyText.Replace("{characterName}", playerCharacter.Name);
+        
+        Console.WriteLine(storyText);
+        
     }
     
-    public void Act()
-    {
-        throw new NotImplementedException();
-    }
-    
-    public async Task Save(IScene entity)
+    public async Task SaveAsync(IScene entity)
     {
         await base.SaveAsync((Story)entity);
     }
     
-    public async Task<IScene> GetById(int id)
+    public new async Task<IScene> GetByIdAsync(int id)
     {
         return await base.GetByIdAsync(id);
     }

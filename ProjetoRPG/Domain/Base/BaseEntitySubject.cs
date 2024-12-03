@@ -17,12 +17,11 @@ public class BaseEntitySubject : BaseEntity
         _observers.Remove(observer);
     }
     
-    public void NotifyObservers(EnumObserverTrigger trigger)
+    public async Task NotifyObservers(EnumObserverTrigger trigger, int? id = null)
     {
         foreach (var observer in _observers)
         {
-            observer.Update(trigger);
+            await observer.Update(trigger, id);
         }
     }
-
 }

@@ -4,5 +4,5 @@ namespace ProjetoRPG.Infra.ObserverPattern;
 
 public interface IObserver
 {
-    void Update(EnumObserverTrigger trigger);
+    Task Update(EnumObserverTrigger trigger, int? id = null);
 }

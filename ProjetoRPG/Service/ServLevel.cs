@@ -5,30 +5,30 @@ using ProjetoRPG.Service.Base;
 using ProjetoRPG.Service.Factory;
 using ProjetoRPG.Domain.DTOs;
 using ProjetoRPG.Enums;
+using ProjetoRPG.Infra.ObserverPattern;
 using ProjetoRPG.Levels.Base;
 
 namespace ProjetoRPG.Service;
 
-public class ServLevel(RepLevel rep, RepCharacter repCharacter, IServiceProvider serviceProvider, RepItem repItem) : BaseService<Level>(rep)
+public class ServLevel(RepLevel rep, 
+                       RepCharacter repCharacter, 
+                       IServiceProvider serviceProvider, 
+                       RepItem repItem) : BaseService<Level>(rep), IObserver
 {
     private IServiceProvider _serviceProvider = serviceProvider;
 
-    public async void StartNextScene(Level level)
+    public async Task StartNextScene(int levelId)
     {
+        var level = await rep.GetByIdAsync(levelId);
         var sceneServiceFactory = new SceneServiceFactory(_serviceProvider);
         var service = sceneServiceFactory.CreateSceneService(level.ActualSceneType);
 
-        var actualScene = await service.GetById(level.IdActualScene);
+        var actualScene = await service.GetByIdAsync(level.IdActualScene);
         if (actualScene.IdNextScene != null)
         {
             level.IdActualScene = actualScene.IdNextScene.Value;
             await rep.UpdateAsync(level);
-            return;
         }
-        
-        // var player = await servPlayer.GetPlayer(); // Notify player with observer pattern
-        // player.Inventory.Gold += level.GoldReward;
-        // Console.WriteLine($"Level {level.Name} completed. You received {level.GoldReward} gold.");
     }
 
     public async Task<Level> NewLevel(NewLevelDto dto)
@@ -62,7 +62,7 @@ public class ServLevel(RepLevel rep, RepCharacter repCharacter, IServiceProvider
         var reverseDtoList = dtoList.AsEnumerable().Reverse();
         foreach (var dto in reverseDtoList)
         {
-            previousScene = await AddLevelScene(dto, previousScene, sceneServiceFactory);
+            previousScene = await AddLevelScene(dto, previousScene, sceneServiceFactory, level);
         }
         
         level.IdFirstScene = previousScene.GetId();
@@ -71,7 +71,7 @@ public class ServLevel(RepLevel rep, RepCharacter repCharacter, IServiceProvider
         await rep.SaveAsync(level);
     }
 
-    private async Task<IScene> AddLevelScene(NewSceneDto dto, IScene previousScene, SceneServiceFactory sceneServiceFactory)
+    private async Task<IScene> AddLevelScene(NewSceneDto dto, IScene previousScene, SceneServiceFactory sceneServiceFactory, Level level)
     {
         var service = sceneServiceFactory.CreateSceneService(dto.Scene.SceneType);
         if (previousScene.Persisted())
@@ -80,17 +80,29 @@ public class ServLevel(RepLevel rep, RepCharacter repCharacter, IServiceProvider
             dto.Scene.NextScene = previousScene;
         }
 
-        if (dto.CombatZoneDto?.Enemy?.Id != null)
+        switch (dto.Scene.SceneType)
         {
-            await AddCombatZone(dto, service);
-            return dto.Scene;
+            case EnumSceneType.Story:
+                await AddStory(dto, service, level);
+                break;
+            case EnumSceneType.CombatZone:
+                await AddCombatZone(dto, service, level);
+                break;
+            default:
+                throw new NotImplementedException();
         }
-            
-        await service.Save(dto.Scene);
+        
         return dto.Scene;
     }
 
-    private async Task AddCombatZone(NewSceneDto dto, ISceneService service)
+    private async Task AddStory(NewSceneDto dto, ISceneService service, Level level)
+    {
+        level.AddObserver(this);
+        await service.SaveAsync(dto.Scene);
+        //todo: add observer logic
+    }
+
+    private async Task AddCombatZone(NewSceneDto dto, ISceneService service, Level level)
     {
         if (dto.Scene.SceneType != EnumSceneType.CombatZone)
             throw new ArgumentException("The scene must be a combat zone to have an enemy.");
@@ -99,6 +111,10 @@ public class ServLevel(RepLevel rep, RepCharacter repCharacter, IServiceProvider
             throw new ArgumentException("The combat zone must have an enemy.");
         
         var combatZone = (CombatZone)dto.Scene;
+        
+        dto.CombatZoneDto.Enemy.AddObserver(level);
+        level.AddObserver(this); //todo: review this logic
+        await SaveAsync(level);
         
         await repCharacter.SaveAsync(dto.CombatZoneDto.Enemy);
         combatZone.IdEnemy = dto.CombatZoneDto.Enemy.Id;
@@ -110,6 +126,30 @@ public class ServLevel(RepLevel rep, RepCharacter repCharacter, IServiceProvider
         }
             
 
-        await service.Save(combatZone);
+        await service.SaveAsync(combatZone);
     }
+
+    #region IObserver
+    public async Task Update(EnumObserverTrigger trigger, int? id = null)
+    {
+        switch (trigger)
+        {
+            case EnumObserverTrigger.OnEnemyCharacterDeath:
+                await HandleEnemyDeath(id);
+                break;
+            default: 
+                throw new NotImplementedException();
+        }
+    }
+
+    private async Task HandleEnemyDeath(int? levelId)
+    {
+        if (!levelId.HasValue)
+        {
+            throw new ArgumentException("The level id must be informed.");
+        }
+            
+        await StartNextScene(levelId.Value);
+    }
+    #endregion
 }

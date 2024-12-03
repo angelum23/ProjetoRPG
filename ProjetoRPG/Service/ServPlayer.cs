@@ -5,8 +5,10 @@ using ProjetoRPG.Domain.DTOs;
 using ProjetoRPG.Enums;
 using ProjetoRPG.Game;
 using ProjetoRPG.Items.Base;
+using ProjetoRPG.Levels;
 using ProjetoRPG.Repository;
 using ProjetoRPG.Service.Base;
+using ProjetoRPG.Service.Factory;
 
 namespace ProjetoRPG.Service;
 
@@ -15,7 +17,8 @@ public class ServPlayer(RepPlayer rep,
                         ServItem servItem, 
                         ServLevel servLevel, 
                         ServCombatZone servCombatZone, 
-                        ServCharacter servCharacter) : BaseService<Player>(rep)
+                        ServCharacter servCharacter,
+                        ServiceProvider serviceProvider) : BaseService<Player>(rep)
 {
     public override Task<Player> SaveAsync(Player entity)
     {
@@ -95,7 +98,20 @@ public class ServPlayer(RepPlayer rep,
             throw new Exception("You are not in a combat zone.");
         }
 
-        var combatZone = await servCombatZone.GetByIdAsync(level.IdActualScene);
+        var combatZone = (CombatZone)await servCombatZone.GetByIdAsync(level.IdActualScene);
         return await servCharacter.GetByIdAsync(combatZone.IdEnemy);
+    }
+
+    public async Task Act(ActDto dto)
+    {
+        var player = await base.GetByIdAsync(dto.playerId);
+        var playerCharacter = await servCharacter.GetByIdAsync(player.IdCharacter);
+        var level = await servLevel.GetByIdAsync(player.IdCurrentLevel);
+        
+        var factory = new SceneServiceFactory(serviceProvider);
+        var sceneService = factory.CreateSceneService(level.ActualSceneType);
+        var scene = await sceneService.GetByIdAsync(level.IdActualScene);
+
+        await sceneService.Act(scene, playerCharacter);
     }
 }
