@@ -108,8 +108,6 @@ public class Character : BaseEntitySubject, ICharacter
         Accuracy -= item.BonusAccuracy;
         Range -= item.BonusRange;
         MagicDamage -= item.BonusMagicDamage;
-        
-        
     }
     public void ReceiveGold(int amount)
     {
@@ -119,39 +117,14 @@ public class Character : BaseEntitySubject, ICharacter
     {
         Gold -= amount;
     }
-    public virtual void TakeDamage(float damage)
-    {
-        var damageTaken = Math.Max(0, damage);
-        CurrentHealth -= damageTaken;
-
-        OnDeathNotifyObservers();
-    }
     
-    public virtual void Attack(Character enemy)
+    public virtual void AddXp(float xp)
     {
-        if (!HitSuccessfully(enemy))
+        XpPerc += xp;
+        if (XpPerc >= 100)
         {
-            Console.WriteLine("Miss!");
-            return;
+            LevelUp();
         }
-        
-        enemy.TakeDamage(Damage / enemy.Armor);
-    }
-
-    public virtual void MagicAtack(Character enemy)
-    {
-        Console.WriteLine("Casted a nothing ball!");
-    }
-
-    public virtual float HitChance(float enemyAgility)
-    {
-        return (Accuracy / (Accuracy + enemyAgility)) * 100;
-    }
-
-    public virtual bool HitSuccessfully(Character enemy)
-    {
-        var roll = (float)Random.Shared.NextDouble() * 100;
-        return roll <= HitChance(enemy.Agility);
     }
     
     public virtual void LevelUp()
@@ -174,17 +147,6 @@ public class Character : BaseEntitySubject, ICharacter
         Agility *= 1.1f;
         MagicDamage *= 1.1f;
         ManaRegeneration *= 1.1f;
-    }
-    
-    private void OnDeathNotifyObservers()
-    {
-        if (CurrentHealth > 0) return;
-        
-        var trigger = MobType == EnumMobType.Player
-            ? EnumObserverTrigger.OnPlayerCharacterDeath
-            : EnumObserverTrigger.OnEnemyCharacterDeath;
-            
-        AsyncHelper.FireAndForget(NotifyObservers(trigger));
     }
     #endregion
 }

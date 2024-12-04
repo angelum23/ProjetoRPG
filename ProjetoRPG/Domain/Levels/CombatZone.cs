@@ -1,11 +1,12 @@
 ﻿using ProjetoRPG.Base;
 using ProjetoRPG.Classes.Base;
 using ProjetoRPG.Enums;
+using ProjetoRPG.Infra;
 using ProjetoRPG.Items.Base;
 
 namespace ProjetoRPG.Levels;
 
-public class CombatZone : BaseEntity, IScene
+public class CombatZone : BaseEntitySubject, IScene
 {
     public string Name { get; set; }
     public string Description { get; set; }
@@ -26,6 +27,4 @@ public class CombatZone : BaseEntity, IScene
     }
 
     public bool Persisted() => Id > 0;
-    
-    
 }

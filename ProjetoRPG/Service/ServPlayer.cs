@@ -4,6 +4,8 @@ using ProjetoRPG.Classes.Base;
 using ProjetoRPG.Domain.DTOs;
 using ProjetoRPG.Enums;
 using ProjetoRPG.Game;
+using ProjetoRPG.Infra;
+using ProjetoRPG.Infra.ObserverPattern;
 using ProjetoRPG.Items.Base;
 using ProjetoRPG.Levels;
 using ProjetoRPG.Repository;
@@ -18,7 +20,7 @@ public class ServPlayer(RepPlayer rep,
                         ServLevel servLevel, 
                         ServCombatZone servCombatZone, 
                         ServCharacter servCharacter,
-                        ServiceProvider serviceProvider) : BaseService<Player>(rep)
+                        ServiceProvider serviceProvider) : BaseService<Player>(rep), IObserver
 {
     public override Task<Player> SaveAsync(Player entity)
     {
@@ -113,5 +115,32 @@ public class ServPlayer(RepPlayer rep,
         var scene = await sceneService.GetByIdAsync(level.IdActualScene);
 
         await sceneService.Act(scene, playerCharacter);
+    }
+
+    public async Task Update(EnumObserverTrigger trigger, int? id = null)
+    {
+        if (trigger == EnumObserverTrigger.OnSceneEnd)
+        {
+            await OnLooting(id);
+        }
+    }
+
+    private async Task OnLooting(int? idCombatZone)
+    {
+        var level = servLevel.Get().First(l => l.IdActualScene == idCombatZone);
+        var player = Get().First(p => p.IdCurrentLevel == level.Id);
+        
+        var combatZone = (CombatZone)await servCombatZone.GetByIdAsync(level.IdActualScene);
+        var inventory = await servInventory.GetByIdAsync(player.IdInventory);
+        
+        if (combatZone.Id != idCombatZone)
+        {
+            return;
+        }
+
+        if (await servCombatZone.WillDropLoot(combatZone))
+        {
+            AsyncHelper.FireAndForget(servInventory.AddItem(inventory, combatZone.LootId));
+        }
     }
 }

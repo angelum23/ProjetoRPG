@@ -8,7 +8,7 @@ using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;
 
-public class ServStory : BaseService<Story>, ISceneService
+public class ServStory : BaseServiceSubject<Story>, ISceneService
 {
     private readonly RepStory? _repStory;
     public ServStory(IServiceProvider serviceProvider) : base(serviceProvider.GetRequiredService<RepStory>())
@@ -39,5 +39,10 @@ public class ServStory : BaseService<Story>, ISceneService
     public new async Task<IScene> GetByIdAsync(int id)
     {
         return await base.GetByIdAsync(id);
+    }
+
+    public Task Update(EnumObserverTrigger trigger, int? id = null)
+    {
+        throw new NotImplementedException();
     }
 }

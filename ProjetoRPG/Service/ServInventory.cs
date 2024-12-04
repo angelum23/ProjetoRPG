@@ -11,7 +11,7 @@ public class ServInventory(RepInventory rep, ServInventoryItem servInventoryItem
 {
     private readonly List<EnumItemType> _weaponTypes = [EnumItemType.Sword, EnumItemType.Bow, EnumItemType.Staff, EnumItemType.Shield];
     
-    public async Task AddItem(Inventory inventory, Item item)
+    public async Task AddItem(Inventory inventory, int idItem)
     {
         var itensCount = await servInventoryItem.GetItensCountAsync(inventory);
         if (itensCount >= inventory.Capacity)
@@ -21,8 +21,8 @@ public class ServInventory(RepInventory rep, ServInventoryItem servInventoryItem
         
         var inventoryItem = new InventoryItem()
         {
-            Inventory = inventory,
-            Item = item
+            IdInventory = inventory.Id,
+            IdItem = idItem
         };
 
         await servInventoryItem.SaveAsync(inventoryItem);

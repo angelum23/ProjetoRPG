@@ -3,7 +3,7 @@ using ProjetoRPG.Enums;
 
 namespace ProjetoRPG.Levels;
 
-public class Story : BaseEntity, IScene
+public class Story : BaseEntitySubject, IScene
 {
     public string Name { get; set; }
     public string Description { get; set; }
@@ -18,4 +18,8 @@ public class Story : BaseEntity, IScene
     }
 
     public bool Persisted() => Id > 0;
+    public Task Update(EnumObserverTrigger trigger, int? id = null)
+    {
+        throw new NotImplementedException();
+    }
 }

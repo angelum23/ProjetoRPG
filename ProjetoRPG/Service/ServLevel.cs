@@ -1,4 +1,5 @@
-﻿using ProjetoRPG.Domain.DTOs;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjetoRPG.Domain.DTOs;
 using ProjetoRPG.Levels;
 using ProjetoRPG.Repository;
 using ProjetoRPG.Service.Base;
@@ -13,7 +14,7 @@ namespace ProjetoRPG.Service;
 public class ServLevel(RepLevel rep, 
                        RepCharacter repCharacter, 
                        IServiceProvider serviceProvider, 
-                       RepItem repItem) : BaseService<Level>(rep), IObserver
+                       RepItem repItem) : BaseServiceSubject<Level>(rep), IObserver
 {
     private IServiceProvider _serviceProvider = serviceProvider;
 
@@ -97,7 +98,6 @@ public class ServLevel(RepLevel rep,
 
     private async Task AddStory(NewSceneDto dto, ISceneService service, Level level)
     {
-        level.AddObserver(this);
         await service.SaveAsync(dto.Scene);
         //todo: add observer logic
     }
@@ -112,9 +112,9 @@ public class ServLevel(RepLevel rep,
         
         var combatZone = (CombatZone)dto.Scene;
         
-        dto.CombatZoneDto.Enemy.AddObserver(level);
-        level.AddObserver(this); //todo: review this logic
         await SaveAsync(level);
+        
+        // dto.CombatZoneDto.Enemy.AddObserver(combatZone);
         
         await repCharacter.SaveAsync(dto.CombatZoneDto.Enemy);
         combatZone.IdEnemy = dto.CombatZoneDto.Enemy.Id;
@@ -134,22 +134,29 @@ public class ServLevel(RepLevel rep,
     {
         switch (trigger)
         {
-            case EnumObserverTrigger.OnEnemyCharacterDeath:
-                await HandleEnemyDeath(id);
+            case EnumObserverTrigger.OnSceneEnd:
+                await HandleStartNextScene(id);
                 break;
             default: 
                 throw new NotImplementedException();
         }
     }
 
-    private async Task HandleEnemyDeath(int? levelId)
+    private async Task HandleStartNextScene(int? id)
     {
-        if (!levelId.HasValue)
+        if (!id.HasValue)
         {
-            throw new ArgumentException("The level id must be informed.");
+            return;
         }
-            
-        await StartNextScene(levelId.Value);
+        
+        var level = await rep.Get().Where(l => l.IdActualScene == id).FirstOrDefaultAsync();
+        if (level == null)
+        {
+            return;
+        }
+        
+        await StartNextScene(level.Id);
     }
+
     #endregion
 }

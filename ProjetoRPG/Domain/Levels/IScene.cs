@@ -1,4 +1,5 @@
 ﻿using ProjetoRPG.Enums;
+using ProjetoRPG.Infra.ObserverPattern;
 
 namespace ProjetoRPG.Levels;
 
