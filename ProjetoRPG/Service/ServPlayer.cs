@@ -20,7 +20,7 @@ public class ServPlayer(RepPlayer rep,
                         ServLevel servLevel, 
                         ServCombatZone servCombatZone, 
                         ServCharacter servCharacter,
-                        ServiceProvider serviceProvider) : BaseService<Player>(rep), IObserver
+                        IServiceProvider serviceProvider) : BaseService<Player>(rep), IObserver
 {
     public override Task<Player> SaveAsync(Player entity)
     {
@@ -123,6 +123,18 @@ public class ServPlayer(RepPlayer rep,
         {
             await OnLooting(id);
         }
+        if(trigger == EnumObserverTrigger.OnPlayerCharacterDeath)
+        {
+            await OnPlayerDeath(id);
+        }
+    }
+
+    private async Task OnPlayerDeath(int? idCharacter)
+    {
+        var player = Get().First(p => p.IdCharacter == idCharacter);
+        player.Remove();
+        await servLevel.ResetLevel(player.IdCurrentLevel);
+        await rep.SaveAsync(player);
     }
 
     private async Task OnLooting(int? idCombatZone)

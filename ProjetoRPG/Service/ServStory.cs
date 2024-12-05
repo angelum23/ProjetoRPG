@@ -1,5 +1,6 @@
 ﻿using ProjetoRPG.Classes.Base;
 using ProjetoRPG.Enums;
+using ProjetoRPG.Infra;
 using ProjetoRPG.Levels;
 using ProjetoRPG.Levels.Base;
 using ProjetoRPG.Repository;
@@ -28,7 +29,8 @@ public class ServStory : BaseServiceSubject<Story>, ISceneService
         storyText = storyText.Replace("{characterName}", playerCharacter.Name);
         
         Console.WriteLine(storyText);
-        
+
+        AsyncHelper.FireAndForget(NotifyObservers(EnumObserverTrigger.OnSceneEnd, scene.GetId()));
     }
     
     public async Task SaveAsync(IScene entity)

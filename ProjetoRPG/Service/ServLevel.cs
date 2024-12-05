@@ -20,7 +20,7 @@ public class ServLevel(RepLevel rep,
 
     public async Task StartNextScene(int levelId)
     {
-        var level = await rep.GetByIdAsync(levelId);
+        var level = await GetByIdAsync(levelId);
         var sceneServiceFactory = new SceneServiceFactory(_serviceProvider);
         var service = sceneServiceFactory.CreateSceneService(level.ActualSceneType);
 
@@ -28,7 +28,7 @@ public class ServLevel(RepLevel rep,
         if (actualScene.IdNextScene != null)
         {
             level.IdActualScene = actualScene.IdNextScene.Value;
-            await rep.UpdateAsync(level);
+            await SaveAsync(level);
         }
     }
 
@@ -47,7 +47,7 @@ public class ServLevel(RepLevel rep,
 
         await AddScenes(level, dto.Scenes);
         
-        await rep.AddAsync(level);
+        await SaveAsync(level);
         return level;
     }
     
@@ -69,7 +69,7 @@ public class ServLevel(RepLevel rep,
         level.IdFirstScene = previousScene.GetId();
         level.IdActualScene = level.IdFirstScene;
         
-        await rep.SaveAsync(level);
+        await SaveAsync(level);
     }
 
     private async Task<IScene> AddLevelScene(NewSceneDto dto, IScene previousScene, SceneServiceFactory sceneServiceFactory, Level level)
@@ -84,7 +84,7 @@ public class ServLevel(RepLevel rep,
         switch (dto.Scene.SceneType)
         {
             case EnumSceneType.Story:
-                await AddStory(dto, service, level);
+                await service.SaveAsync(dto.Scene);
                 break;
             case EnumSceneType.CombatZone:
                 await AddCombatZone(dto, service, level);
@@ -94,12 +94,6 @@ public class ServLevel(RepLevel rep,
         }
         
         return dto.Scene;
-    }
-
-    private async Task AddStory(NewSceneDto dto, ISceneService service, Level level)
-    {
-        await service.SaveAsync(dto.Scene);
-        //todo: add observer logic
     }
 
     private async Task AddCombatZone(NewSceneDto dto, ISceneService service, Level level)
@@ -114,8 +108,6 @@ public class ServLevel(RepLevel rep,
         
         await SaveAsync(level);
         
-        // dto.CombatZoneDto.Enemy.AddObserver(combatZone);
-        
         await repCharacter.SaveAsync(dto.CombatZoneDto.Enemy);
         combatZone.IdEnemy = dto.CombatZoneDto.Enemy.Id;
         
@@ -127,6 +119,13 @@ public class ServLevel(RepLevel rep,
             
 
         await service.SaveAsync(combatZone);
+    }
+    
+    public async Task ResetLevel(int idLevel)
+    {
+        var level = await GetByIdAsync(idLevel);
+        level.IdActualScene = level.IdFirstScene;
+        await SaveAsync(level);
     }
 
     #region IObserver
@@ -149,7 +148,7 @@ public class ServLevel(RepLevel rep,
             return;
         }
         
-        var level = await rep.Get().Where(l => l.IdActualScene == id).FirstOrDefaultAsync();
+        var level = await Get().Where(l => l.IdActualScene == id).FirstOrDefaultAsync();
         if (level == null)
         {
             return;
