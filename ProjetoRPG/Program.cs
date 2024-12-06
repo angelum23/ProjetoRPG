@@ -27,6 +27,12 @@ builder.Services.AddControllers();
 #endregion
 
 var app = builder.Build();
-app.MapControllers();
 
+#region Events configuration
+
+ObserverBuilder.RegisterObservers(app.Services);
+
+#endregion
+
+app.MapControllers();
 app.Run();
