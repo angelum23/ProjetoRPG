@@ -11,8 +11,8 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 
 #region DatabaseConfiguration
 
-// builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 #endregion
 

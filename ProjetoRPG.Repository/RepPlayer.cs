@@ -1,9 +1,12 @@
 ﻿using ProjetoRPG.Domain.Game;
+using ProjetoRPG.Infra;
 using ProjetoRPG.Repository.Base;
 
 namespace ProjetoRPG.Repository;
 
-public class RepPlayer : RepBaseMemory<Player>
+public class RepPlayer : RepBaseDbSet<Player>
 {
-    
+    public RepPlayer(ApplicationDbContext context) : base(context)
+    {
+    }
 }

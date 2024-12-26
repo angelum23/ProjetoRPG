@@ -4,6 +4,9 @@ using ProjetoRPG.Repository.Base;
 
 namespace ProjetoRPG.Repository;
 
-public class RepCharacter : RepBaseMemory<Character>
+public class RepCharacter : RepBaseDbSet<Character>
 {
+    public RepCharacter(ApplicationDbContext context) : base(context)
+    {
+    }
 }
