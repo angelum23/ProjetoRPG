@@ -1,10 +1,8 @@
 ﻿using ProjetoRPG.Domain.Base;
-using ProjetoRPG.Domain.Classes;
 using ProjetoRPG.Domain.Enums;
 using ProjetoRPG.Domain.Items;
-using ProjetoRPG.Infra;
 
-namespace ProjetoRPG.Classes.Base;
+namespace ProjetoRPG.Domain.Classes.Base;
 
 public class Character : BaseEntitySubject, ICharacter
 {
@@ -50,13 +48,19 @@ public class Character : BaseEntitySubject, ICharacter
 
     #region Properties
     public string Name { get; set; }
+    public EnumMobType MobType { get; set; }
+    public EnumClassType ClassType { get; set; }
+    public float Level { get; set; }
+    public float XpPerc { get; set; }
+    
+    public bool IsAlive => CurrentHealth > 0;
+    
+    
     public float Damage { get; set; }
     public float Accuracy { get; set; }
     public float Range { get; set; }
-    
     public float TotalHealth { get; set; }
     public float CurrentHealth { get; set; }
-    public bool IsAlive => CurrentHealth > 0;
     public float Regeneration { get; set; }
     public float Armor { get; set; }
     public float MagicResist { get; set; }
@@ -65,11 +69,6 @@ public class Character : BaseEntitySubject, ICharacter
     public float TotalMana  { get; set; }
     public float CurrentMana  { get; set; }
     public float ManaRegeneration { get; set; }
-    public double Gold { get; set; }
-    public float Level { get; set; }
-    public float XpPerc { get; set; }
-    public EnumMobType MobType { get; set; }
-    public EnumClassType ClassType { get; set; }
 
     #endregion
     
@@ -109,14 +108,6 @@ public class Character : BaseEntitySubject, ICharacter
         Range -= item.BonusRange;
         MagicDamage -= item.BonusMagicDamage;
     }
-    public void ReceiveGold(int amount)
-    {
-        Gold += amount;
-    }
-    public void SpendGold(int amount)
-    {
-        Gold -= amount;
-    }
     
     public virtual void AddXp(float xp)
     {
@@ -139,7 +130,7 @@ public class Character : BaseEntitySubject, ICharacter
         TotalHealth *= 1.1f;
         TotalMana *= 1.1f;
         CurrentHealth = TotalHealth;
-        CurrentHealth = TotalMana;
+        CurrentMana = TotalMana;
         Damage *= 1.1f;
         Regeneration *= 1.1f;
         Armor *= 1.1f;

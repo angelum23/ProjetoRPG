@@ -2,6 +2,7 @@
 using ProjetoRPG.Domain.Game;
 using ProjetoRPG.Domain.Items;
 using ProjetoRPG.Repository;
+using ProjetoRPG.Repository.Inventories;
 using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;

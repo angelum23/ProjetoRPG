@@ -1,5 +1,5 @@
-﻿using ProjetoRPG.Classes.Base;
-using ProjetoRPG.Domain.Base;
+﻿using ProjetoRPG.Domain.Base;
+using ProjetoRPG.Domain.Classes.Base;
 using ProjetoRPG.Domain.Levels;
 
 namespace ProjetoRPG.Domain.Game;

@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProjetoRPG.Classes.Base;
+using ProjetoRPG.Domain.Classes.Base;
 using ProjetoRPG.Domain.Game;
 using ProjetoRPG.Domain.Items;
 using ProjetoRPG.Domain.Levels;
 
-namespace ProjetoRPG.Infra;
+namespace ProjetoRPG.Repository.Base;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
@@ -18,7 +18,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<InventoryItem> InventoryItem { get; set; }
     
     
-    //Level
+    //Level 
     public DbSet<Level> Level { get; set; }
     public DbSet<CombatZone> CombatZone { get; set; }
     public DbSet<Story> Story { get; set; }

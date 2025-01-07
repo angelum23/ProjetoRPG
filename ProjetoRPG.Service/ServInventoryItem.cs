@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoRPG.Domain.Game;
 using ProjetoRPG.Repository;
+using ProjetoRPG.Repository.InventoryItems;
 using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;

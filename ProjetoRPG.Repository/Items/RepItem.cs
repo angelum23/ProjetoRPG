@@ -2,7 +2,7 @@
 using ProjetoRPG.Infra;
 using ProjetoRPG.Repository.Base;
 
-namespace ProjetoRPG.Repository;
+namespace ProjetoRPG.Repository.Items;
 
 public class RepItem : RepBaseDbSet<Item>
 {

@@ -1,6 +1,8 @@
 ﻿using ProjetoRPG.Domain.Enums;
 using ProjetoRPG.Domain.Items;
 using ProjetoRPG.Repository;
+using ProjetoRPG.Repository.Inventories;
+using ProjetoRPG.Repository.Items;
 using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;

@@ -1,4 +1,4 @@
-﻿using ProjetoRPG.Classes.Base;
+﻿using ProjetoRPG.Domain.Classes.Base;
 using ProjetoRPG.Domain.Items;
 using ProjetoRPG.Domain.Levels;
 

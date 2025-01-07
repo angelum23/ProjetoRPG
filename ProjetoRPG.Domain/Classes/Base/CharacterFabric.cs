@@ -1,5 +1,4 @@
-﻿using ProjetoRPG.Classes.Base;
-using ProjetoRPG.Domain.Classes;
+﻿using ProjetoRPG.Domain.Classes;
 using ProjetoRPG.Domain.Classes.Base;
 using ProjetoRPG.Domain.DTOs;
 using ProjetoRPG.Domain.Enums;

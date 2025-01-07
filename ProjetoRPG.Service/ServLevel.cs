@@ -7,6 +7,8 @@ using ProjetoRPG.Service.Factory;
 using ProjetoRPG.Domain.Enums;
 using ProjetoRPG.Domain.Levels;
 using ProjetoRPG.Domain.Levels.Base;
+using ProjetoRPG.Repository.Characters;
+using ProjetoRPG.Repository.Items;
 
 namespace ProjetoRPG.Service;
 

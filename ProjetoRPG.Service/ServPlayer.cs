@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoRPG.Classes;
-using ProjetoRPG.Classes.Base;
 using ProjetoRPG.Domain.Base;
+using ProjetoRPG.Domain.Classes.Base;
 using ProjetoRPG.Domain.DTOs;
 using ProjetoRPG.Domain.Enums;
 using ProjetoRPG.Domain.Game;
@@ -9,6 +9,7 @@ using ProjetoRPG.Domain.Items;
 using ProjetoRPG.Domain.Levels;
 using ProjetoRPG.Infra;
 using ProjetoRPG.Repository;
+using ProjetoRPG.Repository.Players;
 using ProjetoRPG.Service.Base;
 using ProjetoRPG.Service.Factory;
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ProjetoRPG.Classes.Base;
+using ProjetoRPG.Domain.Classes.Base;
 using ProjetoRPG.Domain.Enums;
 using ProjetoRPG.Domain.Levels;
 using ProjetoRPG.Domain.Levels.Base;

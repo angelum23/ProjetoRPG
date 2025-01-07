@@ -1,10 +1,14 @@
-﻿using ProjetoRPG.Base;
-using ProjetoRPG.Domain.Base;
+﻿using ProjetoRPG.Domain.Base;
 using ProjetoRPG.Domain.Enums;
 using ProjetoRPG.Domain.Game;
 using ProjetoRPG.Domain.Levels.Base;
 using ProjetoRPG.Repository;
 using ProjetoRPG.Repository.Base;
+using ProjetoRPG.Repository.Characters;
+using ProjetoRPG.Repository.Inventories;
+using ProjetoRPG.Repository.InventoryItems;
+using ProjetoRPG.Repository.Items;
+using ProjetoRPG.Repository.Players;
 using ProjetoRPG.Service;
 using ProjetoRPG.Service.Base;
 using ProjetoRPG.Service.Factory;

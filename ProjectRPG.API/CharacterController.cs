@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoRPG.Base;
 using ProjetoRPG.Classes;
-using ProjetoRPG.Classes.Base;
+using ProjetoRPG.Domain.Classes.Base;
 using ProjetoRPG.Domain.DTOs;
 using ProjetoRPG.Service;
 

@@ -1,7 +1,8 @@
-﻿using ProjetoRPG.Classes.Base;
+﻿using ProjetoRPG.Domain.Classes.Base;
 using ProjetoRPG.Domain.Enums;
 using ProjetoRPG.Infra;
 using ProjetoRPG.Repository;
+using ProjetoRPG.Repository.Characters;
 using ProjetoRPG.Service.Base;
 
 namespace ProjetoRPG.Service;

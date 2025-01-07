@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoRPG.Infra;
+using ProjetoRPG.Repository.Base;
 
 var builder = WebApplication.CreateBuilder(args);
 

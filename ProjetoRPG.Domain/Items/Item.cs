@@ -9,7 +9,7 @@ public class Item : BaseEntity
     public string Description { get; set; }
     public float BuyPrice { get; set; }
     private const int PercTaxSelling = 20;
-    public float SellPrice () => (BuyPrice * (100 - PercTaxSelling) / 100);
+    public float SellPrice => BuyPrice * (100 - PercTaxSelling) / 100;
     public EnumRarity Rarity { get; set; }
     public EnumItemType ItemType { get; set; }
     

@@ -1,8 +1,8 @@
-﻿using ProjetoRPG.Classes.Base;
+﻿using ProjetoRPG.Domain.Classes.Base;
 using ProjetoRPG.Infra;
 using ProjetoRPG.Repository.Base;
 
-namespace ProjetoRPG.Repository;
+namespace ProjetoRPG.Repository.Characters;
 
 public class RepCharacter : RepBaseDbSet<Character>
 {

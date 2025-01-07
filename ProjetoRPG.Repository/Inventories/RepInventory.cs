@@ -1,8 +1,7 @@
 ﻿using ProjetoRPG.Domain.Game;
-using ProjetoRPG.Infra;
 using ProjetoRPG.Repository.Base;
 
-namespace ProjetoRPG.Repository;
+namespace ProjetoRPG.Repository.Inventories;
 
 public class RepInventory : RepBaseDbSet<Inventory>
 {
