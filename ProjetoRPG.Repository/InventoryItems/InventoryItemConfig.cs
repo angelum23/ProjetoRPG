@@ -1,17 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProjetoRPG.Domain.Game;
+using ProjetoRPG.Infra;
 using ProjetoRPG.Repository.Base;
 
 namespace ProjetoRPG.Repository.InventoryItems;
 
-public class InventoryItemConfig : ConfigBase<InventoryItem>
+public class InventoryItemConfig : BaseConfig<InventoryItem>
 {
     public override void Configure(EntityTypeBuilder<InventoryItem> builder)
     {
         base.Configure(builder);
         
-        builder.Property(ii => ii.IdItem).IsRequired();
-        builder.Property(ii => ii.IdInventory).IsRequired();
+        builder.Int(ii => ii.IdItem);
+        builder.Int(ii => ii.IdInventory);
         
         builder.HasOne(ii => ii.Item)
                .WithMany()

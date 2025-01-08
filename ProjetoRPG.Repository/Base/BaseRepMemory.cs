@@ -2,7 +2,7 @@
 
 namespace ProjetoRPG.Repository.Base
 {
-    public class RepBaseMemory<TEntity> : IRepBase<TEntity> where TEntity : BaseEntity
+    public class BaseRepMemory<TEntity> : IBaseRep<TEntity> where TEntity : BaseEntity
     {
         private readonly List<TEntity> _list = new();
 

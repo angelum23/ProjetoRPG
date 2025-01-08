@@ -4,7 +4,7 @@ using ProjetoRPG.Domain.Base;
 
 namespace ProjetoRPG.Repository.Base;
 
-public interface IRepBase<TEntity> where TEntity : BaseEntity
+public interface IBaseRep<TEntity> where TEntity : BaseEntity
 {
     public IQueryable<TEntity> Get();
     public IQueryable<TEntity> GetRemoved();

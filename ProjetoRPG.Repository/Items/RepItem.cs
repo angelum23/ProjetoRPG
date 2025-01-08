@@ -4,7 +4,7 @@ using ProjetoRPG.Repository.Base;
 
 namespace ProjetoRPG.Repository.Items;
 
-public class RepItem : RepBaseDbSet<Item>
+public class RepItem : BaseRepDbSet<Item>
 {
     public RepItem(ApplicationDbContext context) : base(context)
     {

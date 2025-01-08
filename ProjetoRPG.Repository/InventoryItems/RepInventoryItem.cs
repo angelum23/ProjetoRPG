@@ -3,7 +3,7 @@ using ProjetoRPG.Repository.Base;
 
 namespace ProjetoRPG.Repository.InventoryItems;
 
-public class RepInventoryItem : RepBaseDbSet<InventoryItem>
+public class RepInventoryItem : BaseRepDbSet<InventoryItem>
 {
     public RepInventoryItem(ApplicationDbContext context) : base(context)
     {

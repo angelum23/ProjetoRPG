@@ -40,7 +40,7 @@ public class Character : BaseEntitySubject, ICharacter
         TotalMana = totalMana;
         CurrentMana = currentMana;
         ManaRegeneration = manaRegeneration;
-        Level = level;
+        CharacterLevel = level;
         XpPerc = xpPerc;
         MobType = mobType;
     }
@@ -50,7 +50,7 @@ public class Character : BaseEntitySubject, ICharacter
     public string Name { get; set; }
     public EnumMobType MobType { get; set; }
     public EnumClassType ClassType { get; set; }
-    public float Level { get; set; }
+    public float CharacterLevel { get; set; }
     public float XpPerc { get; set; }
     
     public bool IsAlive => CurrentHealth > 0;
@@ -120,7 +120,7 @@ public class Character : BaseEntitySubject, ICharacter
     
     public virtual void LevelUp()
     {
-        Level++;
+        CharacterLevel++;
         XpPerc = 0;
         LevelUpStats();
     }

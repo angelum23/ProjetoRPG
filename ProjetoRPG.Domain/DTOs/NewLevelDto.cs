@@ -7,7 +7,7 @@ namespace ProjetoRPG.Domain.DTOs;
 public class NewLevelDto
 {
     public string Name { get; init; }
-    public double GoldReward { get; init; }
+    public float GoldReward { get; init; }
     public List<NewSceneDto> Scenes { get; init; }
 
     public Level ToLevel() =>

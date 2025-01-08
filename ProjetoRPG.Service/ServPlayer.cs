@@ -153,7 +153,7 @@ public class ServPlayer(RepPlayer rep,
 
         if (await servCombatZone.WillDropLoot(combatZone))
         {
-            AsyncHelper.FireAndForget(servInventory.AddItem(inventory, combatZone.LootId));
+            AsyncHelper.FireAndForget(servInventory.AddItem(inventory, combatZone.IdLoot));
         }
     }
 }

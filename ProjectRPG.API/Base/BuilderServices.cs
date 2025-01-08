@@ -8,6 +8,7 @@ using ProjetoRPG.Repository.Characters;
 using ProjetoRPG.Repository.Inventories;
 using ProjetoRPG.Repository.InventoryItems;
 using ProjetoRPG.Repository.Items;
+using ProjetoRPG.Repository.Levels;
 using ProjetoRPG.Repository.Players;
 using ProjetoRPG.Service;
 using ProjetoRPG.Service.Base;
@@ -19,7 +20,7 @@ public class BuilderServices
 {
     private static List<Service> GetSingletonList() =>
     [
-        new Service { ServiceType = typeof(RepBaseMemory<>), InterfaceType = typeof(IRepBase<>)},
+        new Service { ServiceType = typeof(BaseRepMemory<>), InterfaceType = typeof(IBaseRep<>)},
         new Service { ServiceType = typeof(BaseService<BaseEntity>), InterfaceType = typeof(IBaseService<BaseEntity>)},
         new Service { ServiceType = typeof(SceneFactory), InterfaceType = typeof(ISceneService)},
         new Service { ServiceType = typeof(RepCharacter) },

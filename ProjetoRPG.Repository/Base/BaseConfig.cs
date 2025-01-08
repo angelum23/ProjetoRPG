@@ -4,7 +4,7 @@ using ProjetoRPG.Domain.Base;
 
 namespace ProjetoRPG.Repository.Base;
 
-public class ConfigBase<T> : IEntityTypeConfiguration<T> where T : BaseEntity
+public class BaseConfig<T> : IEntityTypeConfiguration<T> where T : BaseEntity
 {
     public virtual void Configure(EntityTypeBuilder<T> builder)
     {

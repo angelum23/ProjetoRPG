@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoRPG.Domain.Base;
 using ProjetoRPG.Domain.DTOs;
-using ProjetoRPG.Repository;
 using ProjetoRPG.Service.Base;
 using ProjetoRPG.Service.Factory;
 using ProjetoRPG.Domain.Enums;
@@ -9,6 +8,7 @@ using ProjetoRPG.Domain.Levels;
 using ProjetoRPG.Domain.Levels.Base;
 using ProjetoRPG.Repository.Characters;
 using ProjetoRPG.Repository.Items;
+using ProjetoRPG.Repository.Levels;
 
 namespace ProjetoRPG.Service;
 
@@ -115,7 +115,7 @@ public class ServLevel(RepLevel rep,
         if (dto.CombatZoneDto.Loot?.Item != null)
         {
             await repItem.SaveAsync(dto.CombatZoneDto.Loot.Item);
-            combatZone.LootId = dto.CombatZoneDto.Loot.Item.Id;
+            combatZone.IdLoot = dto.CombatZoneDto.Loot.Item.Id;
         }
             
 

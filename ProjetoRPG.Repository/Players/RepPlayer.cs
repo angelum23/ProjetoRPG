@@ -4,7 +4,7 @@ using ProjetoRPG.Repository.Base;
 
 namespace ProjetoRPG.Repository.Players;
 
-public class RepPlayer : RepBaseDbSet<Player>
+public class RepPlayer : BaseRepDbSet<Player>
 {
     public RepPlayer(ApplicationDbContext context) : base(context)
     {

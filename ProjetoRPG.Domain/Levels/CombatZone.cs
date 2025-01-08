@@ -16,7 +16,7 @@ public class CombatZone : BaseEntitySubject, IScene
     
     public int IdEnemy { get; set; }
     public Character Enemy { get; set; }
-    public int LootId { get; set; }
+    public int IdLoot { get; set; }
     public Item Loot { get; set; }
     public int DropPerc { get; set; } = 100;
 

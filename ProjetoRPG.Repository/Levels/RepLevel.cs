@@ -1,10 +1,9 @@
 ﻿using ProjetoRPG.Domain.Levels;
-using ProjetoRPG.Infra;
 using ProjetoRPG.Repository.Base;
 
-namespace ProjetoRPG.Repository;
+namespace ProjetoRPG.Repository.Levels;
 
-public class RepLevel : RepBaseDbSet<Level>
+public class RepLevel : BaseRepDbSet<Level>
 {
     public RepLevel(ApplicationDbContext context) : base(context)
     {

@@ -4,7 +4,7 @@ using ProjetoRPG.Repository.Base;
 
 namespace ProjetoRPG.Service.Base;
 
-public class BaseServiceSubject<T>(IRepBase<T> rep) : BaseService<T>(rep) where T : BaseEntity
+public class BaseServiceSubject<T>(IBaseRep<T> rep) : BaseService<T>(rep) where T : BaseEntity
 {
     private readonly List<IObserver> _observers = [];
     

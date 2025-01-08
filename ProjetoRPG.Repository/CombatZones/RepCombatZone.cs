@@ -4,7 +4,7 @@ using ProjetoRPG.Repository.Base;
 
 namespace ProjetoRPG.Repository;
 
-public class RepCombatZone : RepBaseDbSet<CombatZone>
+public class RepCombatZone : BaseRepDbSet<CombatZone>
 {
     public RepCombatZone(ApplicationDbContext context) : base(context)
     {
